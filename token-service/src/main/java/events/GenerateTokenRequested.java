@@ -1,19 +1,23 @@
-package org.acme.events;
+package events;
 
-import java.io.Serializable;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-public class RegisterCustomerSucceeded implements Serializable {
+@RegisterForReflection
+public class GenerateTokenRequested {
 
     private String coRelationId;
     private String customerId;
+    private int amount;
 
     // Default constructor
-    public RegisterCustomerSucceeded() {}
+    public GenerateTokenRequested() {}
 
     // Parameterized constructor
-    public RegisterCustomerSucceeded(String coRelationId, String customerId) {
+
+    public GenerateTokenRequested(String coRelationId, String customerId, int amount) {
         this.coRelationId = coRelationId;
         this.customerId = customerId;
+        this.amount = amount;
     }
 
     // Getters and Setters
@@ -31,5 +35,13 @@ public class RegisterCustomerSucceeded implements Serializable {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
