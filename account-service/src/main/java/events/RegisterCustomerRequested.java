@@ -1,6 +1,5 @@
 package events;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public class RegisterCustomerRequested implements Serializable {

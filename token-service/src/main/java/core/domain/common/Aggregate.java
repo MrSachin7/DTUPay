@@ -8,4 +8,8 @@ public abstract class Aggregate<TId> extends Entity<TId>{
     protected Aggregate() {
         // Default constructor for serialization purposes, if needed
     }
+    @Override
+    protected Object[] getEqualityComponents() {
+        return new Object[]{id};
+    }
 }

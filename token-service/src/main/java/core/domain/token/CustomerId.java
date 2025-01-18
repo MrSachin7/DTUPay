@@ -6,12 +6,18 @@ import java.util.UUID;
 
 public class CustomerId extends Id {
 
-    private CustomerId(String id) {
+    private CustomerId() {
     }
 
-    public static CustomerId newCustomerId(String id) {
-        CustomerId customerId = new CustomerId(id);
-        customerId.value = UUID.randomUUID();
+    public static CustomerId newCustomerId() {
+        CustomerId customerId = new CustomerId();
+        customerId.setId(UUID.randomUUID());
+        return customerId;
+    }
+
+    public static CustomerId from(String id){
+        CustomerId customerId = new CustomerId();
+        customerId.setId(UUID.fromString(id));
         return customerId;
     }
 

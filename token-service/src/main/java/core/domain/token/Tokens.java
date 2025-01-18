@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class Tokens extends ValueObject {
 
-    private List<UUID> tokens = new ArrayList<>(6);
+    private final List<UUID> tokens = new ArrayList<>(6);
 
     private Tokens() {
 

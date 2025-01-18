@@ -19,10 +19,13 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class CustomerServiceImpl implements CustomerService {
 
-    @Channel("RegisterCustomerRequested")
-    Emitter<RegisterCustomerRequested> customerRequestEmitter;
+    private final Emitter<RegisterCustomerRequested> customerRequestEmitter;
 
     private final ConcurrentHashMap<String, CompletableFuture<String>> coRelations = new ConcurrentHashMap<>();
+
+    public CustomerServiceImpl(@Channel("RegisterCustomerRequested") Emitter<RegisterCustomerRequested> customerRequestEmitter) {
+        this.customerRequestEmitter = customerRequestEmitter;
+    }
 
     @Override
     public RegisterCustomerResponse registerCustomer(RegisterCustomerRequest registerCustomerDto) {
@@ -54,13 +57,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Incoming("RegisterCustomerSucceeded")
-    @Blocking
-    public void process(JsonObject obj) {
-        RegisterCustomerSucceeded response = obj.mapTo(RegisterCustomerSucceeded.class);
-        System.out.println("Received response for customer registration"+ response.getCustomerId());
-        CompletableFuture<String> future = coRelations.remove(response.getCoRelationId());  // Remove while getting
+    public void process(JsonObject response) {
+        RegisterCustomerSucceeded event = response.mapTo(RegisterCustomerSucceeded.class);
+        System.out.println("Received event for customer registration"+ event.getCustomerId());
+        CompletableFuture<String> future = coRelations.remove(event.getCoRelationId());  // Remove while getting
         if (future != null) {
-            future.complete(response.getCustomerId());
+            future.complete(event.getCustomerId());
         }
     }
 }

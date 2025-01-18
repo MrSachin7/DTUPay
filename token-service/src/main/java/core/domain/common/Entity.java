@@ -1,6 +1,6 @@
 package core.domain.common;
 
-public abstract class Entity<TId> {
+public abstract class Entity<TId> extends ValueObject {
     protected TId id;
 
     protected Entity(TId id) {

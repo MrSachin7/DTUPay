@@ -8,6 +8,10 @@ public abstract class Id extends ValueObject{
     protected Id() {
     }
 
+    protected void setId(UUID value) {
+        this.value = value;
+    }
+
     public String getValue() {
         return value.toString();
     }

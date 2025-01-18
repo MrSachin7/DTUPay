@@ -21,6 +21,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void add(Customer aggregate) {
         customers.put(aggregate.getId(), aggregate);
 
+        System.out.println("New list of customers: ");
+        customers.forEach((key, value) -> System.out.println("Key: " + key + " Value: " + value));
+
     }
 
     @Override
