@@ -5,6 +5,9 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = "summary", publish = false, features = "features", snippets = CucumberOptions.SnippetType.CAMELCASE)
+@CucumberOptions(plugin = "summary",
+        publish = false,
+        features = "features",
+        snippets = CucumberOptions.SnippetType.CAMELCASE)
 public class CucumberTest {
 }

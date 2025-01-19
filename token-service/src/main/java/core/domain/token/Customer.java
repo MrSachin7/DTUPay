@@ -1,6 +1,7 @@
 package core.domain.token;
 
 import core.domain.common.Aggregate;
+import core.domain.common.NotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,4 +30,11 @@ public class Customer extends Aggregate<CustomerId> {
         return tokens.getTokens().stream().map(UUID::toString).toList();
     }
 
+    public void validateToken(String token) throws NotFoundException {
+        tokens.doesTokenExists(token);
+    }
+
+    public void removeToken(String tokenUsed) {
+        tokens.removeToken(tokenUsed);
+    }
 }

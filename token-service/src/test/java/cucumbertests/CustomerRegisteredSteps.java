@@ -5,6 +5,7 @@ import core.domain.token.CustomerId;
 import core.domain.token.CustomerRepository;
 import core.domainService.CustomerService;
 import eventConsumer.CustomerRegisteredProcessor;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.vertx.core.json.JsonObject;
@@ -39,6 +40,7 @@ public class CustomerRegisteredSteps {
         assertNotNull(customer);
         assertEquals(request.getString("customerId"), customer.getId().getValue());
     }
+
 
 
 }

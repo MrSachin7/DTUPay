@@ -5,7 +5,6 @@ import core.domain.token.*;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
-import java.util.UUID;
 
 @ApplicationScoped
 public class TokenService {
@@ -25,5 +24,20 @@ public class TokenService {
         }
         customer.generateTokens(amount);
         return customer.getTokens();
+    }
+
+    public void validateToken(String customerId, String token) throws NotFoundException {
+        Customer customer = repository.find(CustomerId.from(customerId));
+
+        if (customer == null){
+            throw new NotFoundException("Customer not found");
+        }
+
+        customer.validateToken(token);
+    }
+
+    public void removeToken(String customerId, String tokenUsed) {
+        Customer customer = repository.find(CustomerId.from(customerId));
+        customer.removeToken(tokenUsed);
     }
 }
