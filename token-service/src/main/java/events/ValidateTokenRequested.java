@@ -10,7 +10,6 @@ public class ValidateTokenRequested {
 
     private String token;
 
-
     // Default constructor
     public ValidateTokenRequested() {}
 

@@ -5,17 +5,27 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.io.Serializable;
 
 @RegisterForReflection
-public class RegisterCustomerSucceeded implements Serializable {
+public class RegisterCustomerCompleted implements Serializable {
     private String coRelationId;
     private String customerId;
-
+    private String error = null;
     // Default constructor
-    public RegisterCustomerSucceeded() {}
+    public RegisterCustomerCompleted() {}
 
     // Parameterized constructor
-    public RegisterCustomerSucceeded(String coRelationId, String customerId) {
+    public RegisterCustomerCompleted(String coRelationId, String customerId) {
         this.coRelationId = coRelationId;
         this.customerId = customerId;
+    }
+
+    public RegisterCustomerCompleted(String coRelationId, String customerId, String error) {
+        this.coRelationId = coRelationId;
+        this.customerId = customerId;
+        this.error = error;
+    }
+
+    public boolean wasSuccessful(){
+        return error == null;
     }
 
     // Getters and Setters

@@ -37,7 +37,7 @@ public class Tokens extends ValueObject {
         }
     }
 
-    public void doesTokenExists(String token) throws NotFoundException {
+    public void validateToken(String token) throws NotFoundException {
         UUID requestedToken = UUID.fromString(token);
         if (!tokens.contains(requestedToken)) {
             throw new NotFoundException("Token does not exist");

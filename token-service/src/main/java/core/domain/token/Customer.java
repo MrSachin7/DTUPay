@@ -31,7 +31,7 @@ public class Customer extends Aggregate<CustomerId> {
     }
 
     public void validateToken(String token) throws NotFoundException {
-        tokens.doesTokenExists(token);
+        tokens.validateToken(token);
     }
 
     public void removeToken(String tokenUsed) {
