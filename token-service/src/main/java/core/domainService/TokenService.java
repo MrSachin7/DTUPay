@@ -23,7 +23,7 @@ public class TokenService {
         if(customer == null){
             throw new NotFoundException("Customer not found");
         }
-        Tokens tokens = customer.generateTokens(amount);
-        return tokens.getTokens().stream().map(UUID::toString).toList();
+        customer.generateTokens(amount);
+        return customer.getTokens();
     }
 }

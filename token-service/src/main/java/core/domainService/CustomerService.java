@@ -17,6 +17,14 @@ public class CustomerService {
     public void addCustomer(String customerId) {
         System.out.println("Processing customer request");
         Customer aggregate = Customer.from(CustomerId.from(customerId));
+
+        Customer existing = repository.find(aggregate.getId());
+
+        if (existing != null) {
+            // No need to add if it already exists.
+            System.out.println("Customer already exists");
+            return;
+        }
         repository.add(aggregate);
     }
 }

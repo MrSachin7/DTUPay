@@ -3,6 +3,7 @@ package core.domain.token;
 import core.domain.common.Aggregate;
 
 import java.util.List;
+import java.util.UUID;
 
 // TODO: Ask teacher why this can be an aggregate
 // TODO: Should aggregate be copied or just the properties that are relevant to the microservice ?
@@ -20,10 +21,12 @@ public class Customer extends Aggregate<CustomerId> {
         return customer;
     }
 
-    public Tokens generateTokens(int amount) throws TokenException {
+    public void generateTokens(int amount) throws TokenException {
         tokens.generateTokens(amount);
-        return tokens;
     }
 
+    public List<String> getTokens(){
+        return tokens.getTokens().stream().map(UUID::toString).toList();
+    }
 
 }

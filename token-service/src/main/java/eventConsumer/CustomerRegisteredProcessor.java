@@ -18,7 +18,6 @@ public class CustomerRegisteredProcessor{
 
     @Incoming("RegisterCustomerSucceeded")
     public void process(JsonObject request) {
-
         RegisterCustomerSucceeded event = request.mapTo(RegisterCustomerSucceeded.class);
         String customerId = event.getCustomerId();
         System.out.println("Received response for customer registration"+ customerId);
