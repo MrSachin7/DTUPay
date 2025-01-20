@@ -59,4 +59,8 @@ public class Tokens extends ValueObject {
     }
 
 
+    public void deleteToken(String token) {
+        UUID tokenToRemove = UUID.fromString(token);
+        tokens.removeIf(t -> t.equals(tokenToRemove));
+    }
 }

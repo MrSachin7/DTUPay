@@ -26,18 +26,22 @@ public class TokenService {
         return customer.getTokens();
     }
 
-    public void validateToken(String customerId, String token) throws NotFoundException {
-        Customer customer = repository.find(CustomerId.from(customerId));
-
-        if (customer == null){
-            throw new NotFoundException("Customer not found");
-        }
-
-        customer.validateToken(token);
-    }
 
     public void removeToken(String customerId, String tokenUsed) {
         Customer customer = repository.find(CustomerId.from(customerId));
         customer.removeToken(tokenUsed);
+    }
+
+    public String validateToken(String token) throws NotFoundException {
+        Customer customer = repository.findByToken(token);
+
+        if (customer == null){
+            throw new NotFoundException("Invalid token");
+        }
+
+        // Now we dispose the token
+        customer.deleteToken(token);
+
+        return customer.getId().getValue();
     }
 }

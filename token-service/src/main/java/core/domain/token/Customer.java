@@ -37,4 +37,8 @@ public class Customer extends Aggregate<CustomerId> {
     public void removeToken(String tokenUsed) {
         tokens.removeToken(tokenUsed);
     }
+
+    public void deleteToken(String token) {
+        tokens.deleteToken(token);
+    }
 }

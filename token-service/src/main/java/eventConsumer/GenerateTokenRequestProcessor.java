@@ -26,6 +26,7 @@ public class GenerateTokenRequestProcessor {
     public GenerateTokenCompleted process(JsonObject request) {
         System.out.println("Processing token request");
         GenerateTokenRequested event = request.mapTo(GenerateTokenRequested.class);
+
         try {
             List<String> tokens = tokenService.generateTokens(event.getCustomerId(), event.getAmount());
             return new GenerateTokenCompleted(event.getCoRelationId(), tokens);

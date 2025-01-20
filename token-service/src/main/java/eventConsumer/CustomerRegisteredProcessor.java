@@ -17,6 +17,8 @@ public class CustomerRegisteredProcessor{
     @Incoming("RegisterCustomerCompleted")
     public void process(JsonObject request) {
         RegisterCustomerCompleted event = request.mapTo(RegisterCustomerCompleted.class);
+        System.out.println("Processing customer registration"+ event);
+        System.out.println("Was event successful?"+ event.wasSuccessful());
         if (!event.wasSuccessful()) return;
         String customerId = event.getCustomerId();
         System.out.println("Received response for customer registration"+ customerId);
