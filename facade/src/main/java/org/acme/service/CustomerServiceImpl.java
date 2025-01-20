@@ -19,10 +19,13 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class CustomerServiceImpl implements CustomerService {
 
-    @Channel("RegisterCustomerRequested")
-    Emitter<RegisterCustomerRequested> customerRequestEmitter;
+    private final Emitter<RegisterCustomerRequested> customerRequestEmitter;
 
-    private final ConcurrentHashMap<String, CompletableFuture<String>> customers = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, CompletableFuture<String>> coRelations = new ConcurrentHashMap<>();
+
+    public CustomerServiceImpl(@Channel("RegisterCustomerRequested") Emitter<RegisterCustomerRequested> customerRequestEmitter) {
+        this.customerRequestEmitter = customerRequestEmitter;
+    }
 
     @Override
     public RegisterCustomerResponse registerCustomer(RegisterCustomerRequest registerCustomerDto) {
@@ -34,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
         CompletableFuture<String> responseFuture = new CompletableFuture<>();
-        customers.put(event.getCoRelationId(), responseFuture);
+        coRelations.put(event.getCoRelationId(), responseFuture);
 
         try {
             // Send the request
@@ -48,19 +51,18 @@ public class CustomerServiceImpl implements CustomerService {
 
         } catch (Exception e) {
             // Clean up the map entry in case of failure
-            customers.remove(event.getCoRelationId());
+            coRelations.remove(event.getCoRelationId());
             throw new RuntimeException("Failed to register customer", e);
         }
     }
 
     @Incoming("RegisterCustomerSucceeded")
-    @Blocking
-    public void process(JsonObject obj) {
-        RegisterCustomerSucceeded response = obj.mapTo(RegisterCustomerSucceeded.class);
-        System.out.println("Received response for customer registration"+ response.getCustomerId());
-        CompletableFuture<String> future = customers.remove(response.getCoRelationId());  // Remove while getting
+    public void process(JsonObject response) {
+        RegisterCustomerSucceeded event = response.mapTo(RegisterCustomerSucceeded.class);
+        System.out.println("Received event for customer registration"+ event.getCustomerId());
+        CompletableFuture<String> future = coRelations.remove(event.getCoRelationId());  // Remove while getting
         if (future != null) {
-            future.complete(response.getCustomerId());
+            future.complete(event.getCustomerId());
         }
     }
 }
