@@ -1,18 +1,24 @@
 package eventConsumer;
 
-import events.PaymentProcessed;
-import events.PaymentRequested;
+import core.domain.PaymentRequest;
+import core.domain.Payment;
+import core.domainService.PaymentProcessor;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 @ApplicationScoped
 public class PaymentRequestProcessor {
-    @Incoming("PaymentRequested")
-    @Outgoing("PaymentProcessed")
-    public PaymentProcessed process(PaymentRequested request) {
-        System.out.println("Received PaymentRequested message: " + request);
-        System.out.println("Processing payment: " + request.getTokenId());
-        return new PaymentProcessed(request.getTokenId(), request.getMerchantId(), request.getAmount());
+
+    private final PaymentProcessor paymentProcessor;
+
+    public PaymentRequestProcessor(PaymentProcessor paymentProcessor) {
+        this.paymentProcessor = paymentProcessor;
+    }
+
+    @Incoming("payment-requests")
+    public void handlePaymentRequest(PaymentRequest request) {
+        Payment payment = new Payment(request.getPaymentId(), request.getCustomerId(), request.getAmount());
+        paymentProcessor.processPayment(payment);
+        System.out.println("Processed payment for customer: " + request.getCustomerId());
     }
 }

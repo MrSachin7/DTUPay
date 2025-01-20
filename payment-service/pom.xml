@@ -45,8 +45,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-spring-rabbitmq</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-messaging-rabbitmq</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

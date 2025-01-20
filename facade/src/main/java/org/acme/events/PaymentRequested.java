@@ -1,4 +1,4 @@
-package events;
+package org.acme.events;
 
 public class PaymentRequested {
     private String correlationId;
