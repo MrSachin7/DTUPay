@@ -13,9 +13,10 @@ public class RegisterCustomerCompleted implements Serializable {
     public RegisterCustomerCompleted() {}
 
     // Parameterized constructor
-    public RegisterCustomerCompleted(String coRelationId, String customerId) {
+    public RegisterCustomerCompleted(String coRelationId, String customerId, String error) {
         this.coRelationId = coRelationId;
         this.customerId = customerId;
+        this.error = error;
     }
 
     // Getters and Setters

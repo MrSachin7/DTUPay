@@ -50,6 +50,8 @@ public class TokenService {
         GenerateTokenCompleted event = response.mapTo(GenerateTokenCompleted.class);
         CompletableFuture<List<String>> future = coRelations.remove(event.getCoRelationId());
 
+        if (future == null) return;
+
         if (event.wasSuccessful()){
             future.complete(event.getTokens());
             return;

@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class CustomerService  {
+public class CustomerService {
 
     private final Emitter<RegisterCustomerRequested> customerRequestEmitter;
 
@@ -50,20 +50,26 @@ public class CustomerService  {
         } catch (Exception e) {
             // Clean up the map entry in case of failure
             coRelations.remove(event.getCoRelationId());
-            throw new RuntimeException("Failed to register customer", e);
+            throw new RuntimeException(e.getMessage());
         }
     }
+
     @Incoming("RegisterCustomerCompleted")
     public void process(JsonObject response) {
         RegisterCustomerCompleted event = response.mapTo(RegisterCustomerCompleted.class);
-        System.out.println("Received event for customer registration"+ event.getCustomerId());
+
+        System.out.println("Received event for customer registration" + event.getCustomerId());
         CompletableFuture<String> future = coRelations.remove(event.getCoRelationId());  // Remove while getting
 
-        if (!event.wasSuccessful()){
+        if (future == null) {
+            System.out.println("No future found for correlation id: " + event.getCoRelationId());
+            return;
+        }
+
+        if (!event.wasSuccessful()) {
+            System.out.println("Failed to register customer: " + event.getError());
             future.completeExceptionally(new RuntimeException(event.getError()));
         }
-        if (future != null) {
-            future.complete(event.getCustomerId());
-        }
+        future.complete(event.getCustomerId());
     }
 }

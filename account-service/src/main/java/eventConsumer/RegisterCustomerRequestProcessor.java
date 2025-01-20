@@ -18,7 +18,7 @@ public class RegisterCustomerRequestProcessor {
 
     @Inject
     @Channel("RegisterCustomerCompleted")
-    Emitter<RegisterCustomerCompleted> customerSucceededEmitter;
+    Emitter<RegisterCustomerCompleted> registerCustomerCompletedEmitter;
 
     public RegisterCustomerRequestProcessor(AccountService accountService) {
         this.accountService = accountService;
@@ -28,9 +28,15 @@ public class RegisterCustomerRequestProcessor {
     public void process(JsonObject obj){
         System.out.println("Processing request to register customer");
         RegisterCustomerRequested event = obj.mapTo(RegisterCustomerRequested.class);
-        String id = accountService.registerMerchant(event.getFirstname(), event.getLastname(), event.getCprNumber(), event.getAccountNumber());
-        System.out.println("Customer registered with id: " + id);
-        customerSucceededEmitter.send(new RegisterCustomerCompleted(event.getCoRelationId(),id));
+        try {
+            String id = accountService.registerAccount(event.getFirstname(), event.getLastname(), event.getCprNumber(), event.getAccountNumber());
+            System.out.println("Customer registered with id: " + id);
+            registerCustomerCompletedEmitter.send(new RegisterCustomerCompleted(event.getCoRelationId(),id, null));
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            registerCustomerCompletedEmitter.send(new RegisterCustomerCompleted(event.getCoRelationId(),null, e.getMessage()));
+        }
     }
 
 }

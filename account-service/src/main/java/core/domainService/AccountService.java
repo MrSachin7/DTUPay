@@ -13,7 +13,7 @@ public class AccountService {
     }
 
 
-    public String registerMerchant(String firstname, String lastname, String cprNumber, String accountNumber){
+    public String registerAccount(String firstname, String lastname, String cprNumber, String accountNumber){
         CprNumber cpr = CprNumber.from(cprNumber);
         Name name = Name.from(firstname, lastname);
         BankAccountNumber bankAccountNumber = BankAccountNumber.from(accountNumber);
