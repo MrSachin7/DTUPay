@@ -1,29 +1,18 @@
 package eventConsumer;
 
-import core.domain.payment.Amount;
-import core.domain.payment.BankAccountNumber;
-import core.domain.payment.Payment;
+import core.domain.payment.*;
 import core.domainService.PaymentService;
-import dtu.ws.fastmoney.BankServiceException_Exception;
-import events.AccountValidationCompleted;
-import events.PaymentCompleted;
-import events.PaymentRequested;
+import events.*;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.*;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 @ApplicationScoped
 public class PaymentProcessor {
-
-    // Corelation id -> Payment
-    private final ConcurrentHashMap<String, PaymentCache> correlations = new ConcurrentHashMap<>();
-
+    private final ConcurrentHashMap<String, PaymentContext> paymentContexts = new ConcurrentHashMap<>();
     private final Emitter<PaymentCompleted> paymentCompletedEmitter;
-
     private final PaymentService paymentService;
 
     public PaymentProcessor(@Channel("PaymentCompleted") Emitter<PaymentCompleted> paymentCompletedEmitter,
@@ -35,89 +24,108 @@ public class PaymentProcessor {
     @Incoming("ValidateMerchantCompleted")
     public void processMerchantValidation(JsonObject request) {
         AccountValidationCompleted event = request.mapTo(AccountValidationCompleted.class);
-        PaymentCache paymentCache = correlations.get(event.getCorrelationId());
+        System.out.println("MerchantValidationCompleted: " + event.getCorrelationId());
 
-        if (paymentCache == null) {
-            correlations.put(event.getCorrelationId(), new PaymentCache());
-            // Call recursively
-            processMerchantValidation(request);
-            return;
-        }
-        if (!event.wasSuccessful()){
-            paymentCache.setError(event.getError());
-        }
-        else{
-            paymentCache.getPayment().setMerchantAccount(BankAccountNumber.from(event.getBankAccountNumber()));
-
-        }
-        processAfterAllValues(paymentCache, event.getCorrelationId());
+        paymentContexts.compute(event.getCorrelationId(), (id, context) -> {
+            if (context == null) {
+                context = new PaymentContext();
+            }
+            context.merchantAccount = event.getBankAccountNumber();
+            tryProcessPayment(id, context);
+            return context;
+        });
     }
 
     @Incoming("ValidateCustomerCompleted")
     public void processCustomerValidation(JsonObject request) {
         AccountValidationCompleted event = request.mapTo(AccountValidationCompleted.class);
+        System.out.println("CustomerValidationCompleted: " + event.getCorrelationId());
 
-        PaymentCache paymentCache = correlations.get(event.getCorrelationId());
-
-
-        if (paymentCache == null) {
-            correlations.put(event.getCorrelationId(), new PaymentCache());
-            // Call recursively
-            processCustomerValidation(request);
-            return;
-        }
-        if (!event.wasSuccessful()){
-            paymentCache.setError(event.getError());
-        }
-        else{
-            paymentCache.getPayment().setCustomerAccount(BankAccountNumber.from(event.getBankAccountNumber()));
-        }
-        processAfterAllValues(paymentCache, event.getCorrelationId());
-
-
+        paymentContexts.compute(event.getCorrelationId(), (id, context) -> {
+            if (context == null) {
+                context = new PaymentContext();
+            }
+            context.customerAccount = event.getBankAccountNumber();
+            tryProcessPayment(id, context);
+            return context;
+        });
     }
 
     @Incoming("PaymentRequested")
     public void processPaymentRequest(JsonObject request) {
         PaymentRequested event = request.mapTo(PaymentRequested.class);
+        System.out.println("PaymentRequested: " + event.getCorrelationId());
 
-        PaymentCache paymentCache = correlations.get(event.getCorrelationId());
+        paymentContexts.compute(event.getCorrelationId(), (id, context) -> {
+            if (context == null) {
+                context = new PaymentContext();
+            }
+            context.amount = event.getAmount();
+            context.startTime = System.currentTimeMillis();
 
-        if (paymentCache == null) {
-            correlations.put(event.getCorrelationId(), new PaymentCache());
-            // Call recursively
-            processPaymentRequest(request);
-            return;
-        }
-        paymentCache.getPayment().setAmount(Amount.from(event.getAmount()));
-        processAfterAllValues(paymentCache, event.getCorrelationId());
+            // Schedule timeout check
+            scheduleTimeout(id);
+
+            tryProcessPayment(id, context);
+            return context;
+        });
     }
 
-    private void processAfterAllValues(PaymentCache paymentCache, String correlationId) {
-        Payment payment = paymentCache.getPayment();
-        if (payment.getAmount() == null || payment.getCustomerAccount() == null || payment.getMerchantAccount() == null) {
+    private void scheduleTimeout(String correlationId) {
+        CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS).execute(() -> {
+            PaymentContext context = paymentContexts.get(correlationId);
+            if (context != null && !context.isComplete) {
+                handlePaymentError(correlationId, new TimeoutException("Payment processing timed out"));
+            }
+        });
+    }
+
+    private synchronized void tryProcessPayment(String correlationId, PaymentContext context) {
+        if (context.isComplete) {
             return;
         }
 
-        if (!paymentCache.wasSuccessful()){
-            throw new RuntimeException(paymentCache.getError());
-        }
-       try {
-            paymentService.processPayment(payment);
+        if (context.isReadyForProcessing()) {
+            try {
+                String paymentId = paymentService.processPayment(
+                        context.customerAccount,
+                        context.merchantAccount,
+                        context.amount
+                );
 
-            PaymentCompleted completedEvent = new PaymentCompleted(
-                    correlationId,
-                    payment.getId().getValue(),
-                    null
-            );
-            paymentCompletedEmitter.send(completedEvent);
-        } catch (BankServiceException_Exception e) {
-            PaymentCompleted completedEvent = new PaymentCompleted(
-                    correlationId,
-                    null,
-                    e.getMessage()
-            );
-            paymentCompletedEmitter.send(completedEvent);
+                context.isComplete = true;
+                paymentContexts.remove(correlationId);
+                emitPaymentCompleted(correlationId, paymentId, null);
+            } catch (Exception e) {
+                handlePaymentError(correlationId, e);
+            }
+        }
+    }
+
+    private void handlePaymentError(String correlationId, Throwable error) {
+        PaymentContext context = paymentContexts.remove(correlationId);
+        if (context != null && !context.isComplete) {
+            context.isComplete = true;
+            emitPaymentCompleted(correlationId, null, error.getMessage());
+        }
+    }
+
+    private void emitPaymentCompleted(String correlationId, String paymentId, String error) {
+        PaymentCompleted completedEvent = new PaymentCompleted(correlationId, paymentId, error);
+        paymentCompletedEmitter.send(completedEvent);
+    }
+
+    private static class PaymentContext {
+        String customerAccount;
+        String merchantAccount;
+        double amount;
+        long startTime;
+        boolean isComplete;
+
+        boolean isReadyForProcessing() {
+            return customerAccount != null &&
+                    merchantAccount != null &&
+                    amount > 0;
         }
     }
 }

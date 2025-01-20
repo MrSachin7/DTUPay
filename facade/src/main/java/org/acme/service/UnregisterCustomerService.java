@@ -2,10 +2,6 @@ package org.acme.service;
 
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.acme.dto.RegisterCustomerRequest;
-import org.acme.dto.RegisterCustomerResponse;
-import org.acme.events.RegisterCustomerCompleted;
-import org.acme.events.RegisterCustomerRequested;
 import org.acme.events.UnregisterCustomerCompleted;
 import org.acme.events.UnregisterCustomerRequested;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -28,9 +24,9 @@ public class UnregisterCustomerService {
         this.customerRequestEmitter = customerRequestEmitter;
     }
 
-    public void registerCustomer(UnregisterCustomerRequested unregisterCustomerRequested) {
+    public void unregisterCustomer(String customerId) {
         // Create and store the future BEFORE sending the request
-        UnregisterCustomerRequested event = new UnregisterCustomerRequested(UUID.randomUUID().toString(), unregisterCustomerRequested.getCustomerId());
+        UnregisterCustomerRequested event = new UnregisterCustomerRequested(UUID.randomUUID().toString(), customerId);
 
 
         CompletableFuture<Void> responseFuture = new CompletableFuture<>();

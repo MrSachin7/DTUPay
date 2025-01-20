@@ -18,12 +18,11 @@ public class UnRegisterCustomerRequestProcessor {
 
     private final AccountService accountService;
 
-    @Inject
-    @Channel("UnregisterCustomerCompleted")
-    Emitter<UnregisterCustomerCompleted> unregisterCustomerCompletedEmitter;
+    private final Emitter<UnregisterCustomerCompleted> unregisterCustomerCompletedEmitter;
 
-    public UnRegisterCustomerRequestProcessor(AccountService accountService) {
+    public UnRegisterCustomerRequestProcessor(AccountService accountService, @Channel("UnregisterCustomerCompleted") Emitter<UnregisterCustomerCompleted> unregisterCustomerCompletedEmitter) {
         this.accountService = accountService;
+        this.unregisterCustomerCompletedEmitter = unregisterCustomerCompletedEmitter;
     }
 
     @Incoming("UnregisterCustomerRequested")

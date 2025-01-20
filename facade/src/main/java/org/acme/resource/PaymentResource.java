@@ -6,7 +6,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.StartPaymentRequest;
-import org.acme.events.PaymentRequested;
 import org.acme.service.PaymentService;
 
 @Path("/merchants")
@@ -21,7 +20,7 @@ public class PaymentResource {
     @POST
     @Consumes("application/json")
     @Path("/{merchantId}/payments")
-    public Response startPayment(@PathParam("merchantId") String merchantId , StartPaymentRequest paymentRequested) {
+    public Response pay(@PathParam("merchantId") String merchantId , StartPaymentRequest paymentRequested) {
         try {
             String paymentId = paymentService.startPayment(merchantId, paymentRequested);
             return Response.ok(paymentId).build();

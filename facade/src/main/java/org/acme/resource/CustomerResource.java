@@ -6,13 +6,16 @@ import jakarta.ws.rs.core.Response;
 import org.acme.dto.RegisterCustomerRequest;
 import org.acme.dto.RegisterCustomerResponse;
 import org.acme.service.RegisterCustomerService;
+import org.acme.service.UnregisterCustomerService;
 
 @Path("/customers")
 public class CustomerResource {
     private final RegisterCustomerService registerCustomerService;
+    private final UnregisterCustomerService unregisterCustomerService;
 
-    public CustomerResource(RegisterCustomerService registerCustomerService) {
+    public CustomerResource(RegisterCustomerService registerCustomerService, UnregisterCustomerService unregisterCustomerService) {
         this.registerCustomerService = registerCustomerService;
+        this.unregisterCustomerService = unregisterCustomerService;
     }
 
     @POST
@@ -31,7 +34,7 @@ public class CustomerResource {
     @Path("/{customerId}")
     public Response unregisterCustomer(@PathParam("customerId") String customerId) {
         try {
-            registerCustomerService.unregisterCustomer(customerId);
+            unregisterCustomerService.unregisterCustomer(customerId);
             return Response.ok().build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
