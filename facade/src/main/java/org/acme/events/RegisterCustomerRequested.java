@@ -1,7 +1,11 @@
 package org.acme.events;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import jdk.jfr.Registered;
+
 import java.io.Serializable;
 
+@RegisterForReflection
 public class RegisterCustomerRequested implements Serializable {
 
     private String coRelationId;

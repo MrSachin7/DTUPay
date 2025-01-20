@@ -1,22 +1,27 @@
 package events;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
 import java.io.Serializable;
 
-public class RegisterCustomerCompleted implements Serializable {
+@RegisterForReflection
+public class UnregisterCustomerRequested implements Serializable {
 
     private String coRelationId;
     private String customerId;
 
-    private String error;
 
+    // Ensure backward compatibility with serialVersionUID
 
     // Default constructor
-    public RegisterCustomerCompleted() {}
+    public UnregisterCustomerRequested() {
+    }
 
     // Parameterized constructor
-    public RegisterCustomerCompleted(String coRelationId, String customerId, String error) {
+    public UnregisterCustomerRequested(String coRelationId, String customerId) {
         this.coRelationId = coRelationId;
         this.customerId = customerId;
-        this.error = error;
+
     }
 
     // Getters and Setters
@@ -36,15 +41,4 @@ public class RegisterCustomerCompleted implements Serializable {
         this.customerId = customerId;
     }
 
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public boolean wasSuccessful(){
-        return error == null;
-    }
 }

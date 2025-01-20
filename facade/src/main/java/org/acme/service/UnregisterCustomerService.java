@@ -6,6 +6,8 @@ import org.acme.dto.RegisterCustomerRequest;
 import org.acme.dto.RegisterCustomerResponse;
 import org.acme.events.RegisterCustomerCompleted;
 import org.acme.events.RegisterCustomerRequested;
+import org.acme.events.UnregisterCustomerCompleted;
+import org.acme.events.UnregisterCustomerRequested;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -16,36 +18,32 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class CustomerService {
+public class UnregisterCustomerService {
 
-    private final Emitter<RegisterCustomerRequested> customerRequestEmitter;
+    private final Emitter<UnregisterCustomerRequested> customerRequestEmitter;
 
-    private final ConcurrentHashMap<String, CompletableFuture<String>> coRelations = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, CompletableFuture<Void>> coRelations = new ConcurrentHashMap<>();
 
-    public CustomerService(@Channel("RegisterCustomerRequested") Emitter<RegisterCustomerRequested> customerRequestEmitter) {
+    public UnregisterCustomerService(@Channel("UnregisterCustomerRequested") Emitter<UnregisterCustomerRequested> customerRequestEmitter) {
         this.customerRequestEmitter = customerRequestEmitter;
     }
 
-    public RegisterCustomerResponse registerCustomer(RegisterCustomerRequest registerCustomerDto) {
+    public void registerCustomer(UnregisterCustomerRequested unregisterCustomerRequested) {
         // Create and store the future BEFORE sending the request
-        RegisterCustomerRequested event = new RegisterCustomerRequested(UUID.randomUUID().toString(),
-                registerCustomerDto.firstname(), registerCustomerDto.lastname(),
-                registerCustomerDto.cprNumber(),
-                registerCustomerDto.accountNumber());
+        UnregisterCustomerRequested event = new UnregisterCustomerRequested(UUID.randomUUID().toString(), unregisterCustomerRequested.getCustomerId());
 
 
-        CompletableFuture<String> responseFuture = new CompletableFuture<>();
+        CompletableFuture<Void> responseFuture = new CompletableFuture<>();
         coRelations.put(event.getCoRelationId(), responseFuture);
 
         try {
             // Send the request
-            System.out.println("Sending request to register customer");
+            System.out.println("Sending request to unregister customer");
             customerRequestEmitter.send(event);
 
             // Wait for the response with a timeout
             // Wait for 30 secs at max
-            String customerId = responseFuture.get(30, TimeUnit.SECONDS);
-            return new RegisterCustomerResponse(customerId);
+            responseFuture.get(30, TimeUnit.SECONDS);
 
         } catch (Exception e) {
             // Clean up the map entry in case of failure
@@ -54,12 +52,11 @@ public class CustomerService {
         }
     }
 
-    @Incoming("RegisterCustomerCompleted")
+    @Incoming("UnregisterCustomerCompleted")
     public void process(JsonObject response) {
-        RegisterCustomerCompleted event = response.mapTo(RegisterCustomerCompleted.class);
+        UnregisterCustomerCompleted event = response.mapTo(UnregisterCustomerCompleted.class);
 
-        System.out.println("Received event for customer registration" + event.getCustomerId());
-        CompletableFuture<String> future = coRelations.remove(event.getCoRelationId());  // Remove while getting
+        CompletableFuture<Void> future = coRelations.remove(event.getCoRelationId());  // Remove while getting
 
         if (future == null) {
             System.out.println("No future found for correlation id: " + event.getCoRelationId());
@@ -70,6 +67,7 @@ public class CustomerService {
             System.out.println("Failed to register customer: " + event.getError());
             future.completeExceptionally(new RuntimeException(event.getError()));
         }
-        future.complete(event.getCustomerId());
+        future.complete(null);
     }
+
 }

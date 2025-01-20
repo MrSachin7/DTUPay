@@ -36,7 +36,5 @@ public class PaymentRequestedProcessor {
                     e.getMessage()
             );
         }
-
-
     }
 }

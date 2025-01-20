@@ -33,4 +33,8 @@ public class AccountService {
 
         return account.getBankAccountNumber().getValue();
     }
+
+    public void unregisterAccount(String customerId) {
+        accountRepository.delete(AccountId.from(customerId));
+    }
 }
