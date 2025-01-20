@@ -1,0 +1,59 @@
+version: '3.8'
+services:
+  rabitt-mqtt:
+    image: rabbitmq:3-management
+    container_name: rabbit-mqtt
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  facade:
+    build: facade
+    container_name: facade-service
+    ports:
+      - "8080:8080"
+    networks:
+      - sw-network
+    restart: on-failure
+    depends_on:
+      rabitt-mqtt:
+        condition: service_healthy
+
+  token:
+    build: token-service
+    container_name: token-service
+    networks:
+      - sw-network
+    restart: on-failure
+    depends_on:
+      rabitt-mqtt:
+        condition: service_healthy
+
+  account:
+    build: account-service
+    container_name: account-service
+    networks:
+      - sw-network
+    restart: on-failure
+    depends_on:
+      rabitt-mqtt:
+        condition: service_healthy
+
+  payment:
+    build: payment-service
+    container_name: payment-service
+    networks:
+      - sw-network
+    restart: on-failure
+    depends_on:
+      rabitt-mqtt:
+        condition: service_healthy
+
+networks:
+  pay-network:
