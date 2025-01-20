@@ -18,4 +18,8 @@ public class Account extends Aggregate<AccountId> {
         account.bankAccountNumber = bankAccountNumber;
         return account;
     }
+
+    public BankAccountNumber getBankAccountNumber() {
+        return bankAccountNumber;
+    }
 }

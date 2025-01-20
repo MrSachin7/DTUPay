@@ -1,31 +1,22 @@
 package events;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
 import java.io.Serializable;
 
-@RegisterForReflection
 public class RegisterCustomerCompleted implements Serializable {
+
     private String coRelationId;
     private String customerId;
-    private String error = null;
+
+    private String error;
+
+
     // Default constructor
     public RegisterCustomerCompleted() {}
 
     // Parameterized constructor
-    public RegisterCustomerCompleted(String coRelationId, String customerId) {
-        this.coRelationId = coRelationId;
-        this.customerId = customerId;
-    }
-
     public RegisterCustomerCompleted(String coRelationId, String customerId, String error) {
         this.coRelationId = coRelationId;
         this.customerId = customerId;
         this.error = error;
-    }
-
-    public boolean wasSuccessful(){
-        return error == null;
     }
 
     // Getters and Setters
@@ -43,5 +34,17 @@ public class RegisterCustomerCompleted implements Serializable {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public boolean wasSuccessful(){
+        return error == null;
     }
 }

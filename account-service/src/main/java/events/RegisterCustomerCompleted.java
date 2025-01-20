@@ -1,19 +1,22 @@
-package org.acme.events;
-
+package events;
 import java.io.Serializable;
 
-public class RegisterCustomerSucceeded implements Serializable {
+public class RegisterCustomerCompleted implements Serializable {
 
     private String coRelationId;
     private String customerId;
 
+    private String error;
+
+
     // Default constructor
-    public RegisterCustomerSucceeded() {}
+    public RegisterCustomerCompleted() {}
 
     // Parameterized constructor
-    public RegisterCustomerSucceeded(String coRelationId, String customerId) {
+    public RegisterCustomerCompleted(String coRelationId, String customerId, String error) {
         this.coRelationId = coRelationId;
         this.customerId = customerId;
+        this.error = error;
     }
 
     // Getters and Setters
@@ -31,5 +34,17 @@ public class RegisterCustomerSucceeded implements Serializable {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public boolean wasSuccessful(){
+        return error == null;
     }
 }
