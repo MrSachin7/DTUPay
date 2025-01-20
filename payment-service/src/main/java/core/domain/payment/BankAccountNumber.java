@@ -1,4 +1,4 @@
-package core.domain.account;
+package core.domain.payment;
 
 import core.domain.common.ValueObject;
 

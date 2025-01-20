@@ -5,7 +5,7 @@ import jakarta.ws.rs.core.Response;
 import org.acme.dto.GenerateTokenResponse;
 import org.acme.service.TokenService;
 
-@Path("/tokens")
+@Path("/customers")
 public class TokenResource {
 
     private final TokenService tokenService;
@@ -16,7 +16,7 @@ public class TokenResource {
 
     @GET
     @Produces("application/json")
-    @Path("/{customerId}")
+    @Path("/{customerId}/tokens")
     public Response generateToken(@PathParam("customerId") String customerId, @QueryParam("amount") int amount) {
         try {
             GenerateTokenResponse token = tokenService.generateToken(customerId, amount);
