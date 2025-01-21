@@ -45,7 +45,10 @@ public class ValidateTokenCompletedProcessor {
                     event.getCustomerId(),
                     null,
                     e.getMessage());
+            accountValidationCompletedEmitter.send(eventToFire);
+
         }
+
 
     }
 }
