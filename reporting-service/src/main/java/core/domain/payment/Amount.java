@@ -3,7 +3,6 @@ package core.domain.payment;
 import core.domain.common.ValueObject;
 
 public class Amount extends ValueObject {
-
     private double value;
 
     private Amount() {

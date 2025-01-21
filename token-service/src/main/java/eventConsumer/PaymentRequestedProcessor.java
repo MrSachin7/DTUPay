@@ -13,7 +13,6 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 public class PaymentRequestedProcessor {
     private final TokenService tokenService;
 
-
     public PaymentRequestedProcessor(TokenService tokenService) {
         this.tokenService = tokenService;
     }

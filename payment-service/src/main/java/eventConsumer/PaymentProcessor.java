@@ -73,8 +73,6 @@ public class PaymentProcessor {
             paymentCache.getPayment().setCustomerAccount(BankAccountNumber.from(event.getBankAccountNumber()));
         }
         processAfterAllValues(paymentCache, event.getCorrelationId());
-
-
     }
 
     @Incoming("PaymentRequested")
@@ -102,7 +100,8 @@ public class PaymentProcessor {
         if (!paymentCache.wasSuccessful()){
             throw new RuntimeException(paymentCache.getError());
         }
-       try {
+
+        try {
             paymentService.processPayment(payment);
 
             PaymentCompleted completedEvent = new PaymentCompleted(

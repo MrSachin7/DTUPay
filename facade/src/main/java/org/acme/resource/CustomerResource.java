@@ -1,9 +1,6 @@
 package org.acme.resource;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.RegisterCustomerRequest;
@@ -19,8 +16,8 @@ public class CustomerResource {
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/json")
+    @Consumes("application/json")
     public Response createCustomer(RegisterCustomerRequest registerCustomerRequest) {
         try {
             RegisterCustomerResponse response = customerService.registerCustomer(registerCustomerRequest);
@@ -28,5 +25,12 @@ public class CustomerResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    @GET
+    @Consumes("application/json")
+    @Path("/{customerId}/reports")
+    public Response getReportsForCustomer(@PathParam("customerId") String customerId) {
+        return null;
     }
 }

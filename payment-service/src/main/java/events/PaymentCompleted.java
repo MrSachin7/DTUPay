@@ -10,7 +10,6 @@ public class PaymentCompleted {
 
     private String paymentId;
 
-
     public PaymentCompleted() {
     }
 

@@ -8,7 +8,6 @@ public class Payment extends Aggregate<PaymentId> {
     private BankAccountNumber merchantAccount;
 
     private Payment(){
-
     }
 
     public static Payment newPayment(){
