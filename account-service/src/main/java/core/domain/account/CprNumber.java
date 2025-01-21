@@ -17,6 +17,10 @@ public class CprNumber extends ValueObject {
         return cprNumber;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     @Override
     protected Object[] getEqualityComponents() {
         return new Object[]{value};
