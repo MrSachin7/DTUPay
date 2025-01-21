@@ -19,12 +19,18 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Account find(AccountId accountId) {
-        return accounts.get(accountId);
+        System.out.println("Looking for account with ID: " + accountId);
+        Account account = accounts.get(accountId);
+        if (account == null) {
+            System.out.println("Account not found for ID: " + accountId);
+        }
+        return account;
     }
+
     @Override
     public void add(Account account) {
         accounts.put(account.getId(), account);
-
+        System.out.println("Added account with ID: " + account.getId());
     }
 
     @Override
