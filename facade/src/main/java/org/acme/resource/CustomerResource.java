@@ -30,6 +30,13 @@ public class CustomerResource {
         }
     }
 
+    @GET
+    @Consumes("application/json")
+    @Path("/{customerId}/reports")
+    public Response getReportsForCustomer(@PathParam("customerId") String customerId) {
+        return null;
+    }
+  
     @DELETE
     @Path("/{customerId}")
     public Response unregisterCustomer(@PathParam("customerId") String customerId) {

@@ -55,5 +55,15 @@ services:
       rabitt-mqtt:
         condition: service_healthy
 
+  reporting:
+    build: ../reporting-service
+    container_name: reporting-service
+    networks:
+      - sw-network
+    restart: on-failure
+    depends_on:
+      rabitt-mqtt:
+        condition: service_healthy
+
 networks:
   pay-network:

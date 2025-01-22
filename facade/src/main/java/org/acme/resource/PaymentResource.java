@@ -1,9 +1,6 @@
 package org.acme.resource;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.StartPaymentRequest;
 import org.acme.service.PaymentService;
@@ -27,6 +24,13 @@ public class PaymentResource {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
+
+    @GET
+    @Consumes("application/json")
+    @Path("/{merchantId}/reports")
+    public Response getReportsForMerchant(@PathParam("merchantId") String merchantId) {
+        return null;
+    }
+
 }

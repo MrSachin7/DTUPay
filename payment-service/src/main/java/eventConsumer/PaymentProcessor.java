@@ -39,8 +39,6 @@ public class PaymentProcessor {
     @Incoming("ValidateCustomerCompleted")
     public void processCustomerValidation(JsonObject request) {
         AccountValidationCompleted event = request.mapTo(AccountValidationCompleted.class);
-        System.out.println("CustomerValidationCompleted: " + event.getCorrelationId());
-
         paymentContexts.compute(event.getCorrelationId(), (id, context) -> {
             if (context == null) {
                 context = new PaymentContext();
@@ -100,6 +98,27 @@ public class PaymentProcessor {
                 handlePaymentError(correlationId, e);
             }
         }
+        try {
+            paymentService.processPayment(payment);
+
+            PaymentCompleted completedEvent = new PaymentCompleted(
+                    correlationId,
+                    null,
+                    payment.getId().getValue(),
+                    payment.getToken().getValue(),
+                    payment.getAmount().getValue(),
+                    payment.getMerchantId().getValue(),
+                    payment.getCustomerId().getValue()
+            );
+
+            paymentCompletedEmitter.send(completedEvent);
+        } catch (BankServiceException_Exception e) {
+            PaymentCompleted completedEvent = new PaymentCompleted(
+                    correlationId,
+                    null,
+                    e.getMessage()
+            );
+            paymentCompletedEmitter.send(completedEvent);
     }
 
     private void handlePaymentError(String correlationId, Throwable error) {

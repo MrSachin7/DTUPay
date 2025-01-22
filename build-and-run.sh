@@ -18,6 +18,10 @@ pushd payment-service
 ./build.sh
 popd
 
+pushd reporting-service
+./build.sh
+popd
+
 pushd end-to-end-test-service
 ./deploy.sh
 ./test.sh
