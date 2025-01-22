@@ -31,4 +31,9 @@ public class AccountRepositoryImpl implements AccountRepository {
     public void remove(Account account) {
         accounts.remove(account.getId());
     }
+
+    @Override
+    public void delete(AccountId id) {
+        accounts.remove(id);
+    }
 }

@@ -48,9 +48,14 @@ public class TokenService {
     @Incoming("GenerateTokenCompleted")
     public void process(JsonObject response){
         GenerateTokenCompleted event = response.mapTo(GenerateTokenCompleted.class);
+        System.out.println("Received response for correlation id: " + event.getCoRelationId());
+        System.out.println("Number of generated tokens: " + event.getTokens().size());
         CompletableFuture<List<String>> future = coRelations.remove(event.getCoRelationId());
 
-        if (future == null) return;
+        if (future == null) {
+            System.out.println("No future found for correlation id: " + event.getCoRelationId());
+            return;
+        };
 
         if (event.wasSuccessful()){
             future.complete(event.getTokens());

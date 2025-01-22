@@ -14,7 +14,7 @@ public class TokenResource {
         this.tokenService = tokenService;
     }
 
-    @GET
+    @POST
     @Produces("application/json")
     @Path("/{customerId}/tokens")
     public Response generateToken(@PathParam("customerId") String customerId, @QueryParam("amount") int amount) {

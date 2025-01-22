@@ -16,13 +16,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class CustomerService {
+public class RegisterCustomerService {
 
     private final Emitter<RegisterCustomerRequested> customerRequestEmitter;
 
     private final ConcurrentHashMap<String, CompletableFuture<String>> coRelations = new ConcurrentHashMap<>();
 
-    public CustomerService(@Channel("RegisterCustomerRequested") Emitter<RegisterCustomerRequested> customerRequestEmitter) {
+    public RegisterCustomerService(@Channel("RegisterCustomerRequested") Emitter<RegisterCustomerRequested> customerRequestEmitter) {
         this.customerRequestEmitter = customerRequestEmitter;
     }
 
@@ -72,4 +72,5 @@ public class CustomerService {
         }
         future.complete(event.getCustomerId());
     }
+
 }
