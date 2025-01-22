@@ -1,6 +1,5 @@
 package eventConsumer;
 
-import core.domain.payment.*;
 import core.domainService.PaymentService;
 import events.*;
 import io.vertx.core.json.JsonObject;
@@ -44,6 +43,7 @@ public class PaymentProcessor {
                 context = new PaymentContext();
             }
             context.customerAccount = event.getBankAccountNumber();
+            context.customerId = event.getUserId();
             tryProcessPayment(id, context);
             return context;
         });
@@ -60,6 +60,7 @@ public class PaymentProcessor {
             }
             context.amount = event.getAmount();
             context.startTime = System.currentTimeMillis();
+            context.merchantId = event.getMerchantId();
 
             // Schedule timeout check
             scheduleTimeout(id);
@@ -92,45 +93,24 @@ public class PaymentProcessor {
                 );
 
                 context.isComplete = true;
-                paymentContexts.remove(correlationId);
-                emitPaymentCompleted(correlationId, paymentId, null);
+                PaymentContext removed = paymentContexts.remove(correlationId);
+                emitPaymentCompleted(correlationId, paymentId, null, removed.token, removed.amount, removed.merchantId, removed.customerId);
             } catch (Exception e) {
                 handlePaymentError(correlationId, e);
             }
         }
-        try {
-            paymentService.processPayment(payment);
-
-            PaymentCompleted completedEvent = new PaymentCompleted(
-                    correlationId,
-                    null,
-                    payment.getId().getValue(),
-                    payment.getToken().getValue(),
-                    payment.getAmount().getValue(),
-                    payment.getMerchantId().getValue(),
-                    payment.getCustomerId().getValue()
-            );
-
-            paymentCompletedEmitter.send(completedEvent);
-        } catch (BankServiceException_Exception e) {
-            PaymentCompleted completedEvent = new PaymentCompleted(
-                    correlationId,
-                    null,
-                    e.getMessage()
-            );
-            paymentCompletedEmitter.send(completedEvent);
     }
 
     private void handlePaymentError(String correlationId, Throwable error) {
         PaymentContext context = paymentContexts.remove(correlationId);
         if (context != null && !context.isComplete) {
             context.isComplete = true;
-            emitPaymentCompleted(correlationId, null, error.getMessage());
+            emitPaymentCompleted(correlationId, null, error.getMessage(),context.token, context.amount, context.merchantId, context.customerId);
         }
     }
 
-    private void emitPaymentCompleted(String correlationId, String paymentId, String error) {
-        PaymentCompleted completedEvent = new PaymentCompleted(correlationId, paymentId, error);
+    private void emitPaymentCompleted(String correlationId, String paymentId, String error, String token, double amount, String merchantId, String customerId) {
+        PaymentCompleted completedEvent = new PaymentCompleted(correlationId, error, paymentId, token, amount, merchantId, customerId);
         paymentCompletedEmitter.send(completedEvent);
     }
 
@@ -140,7 +120,9 @@ public class PaymentProcessor {
         double amount;
         long startTime;
         boolean isComplete;
-
+        String token;
+        String merchantId;
+        String customerId;
         boolean isReadyForProcessing() {
             return customerAccount != null &&
                     merchantAccount != null &&
