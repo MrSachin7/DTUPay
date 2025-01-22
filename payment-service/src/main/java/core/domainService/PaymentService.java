@@ -17,8 +17,6 @@ public class PaymentService {
     }
 
     public void processPayment(Payment payment) throws BankServiceException_Exception {
-
-
         bankService.transferMoneyFromTo(payment.getMerchantAccount().getValue(),
                 payment.getCustomerAccount().getValue(),
                 BigDecimal.valueOf(payment.getAmount().getValue()),

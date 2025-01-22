@@ -1,8 +1,6 @@
 package eventConsumer;
 
-import core.domain.payment.Amount;
-import core.domain.payment.BankAccountNumber;
-import core.domain.payment.Payment;
+import core.domain.payment.*;
 import core.domainService.PaymentService;
 import dtu.ws.fastmoney.BankServiceException_Exception;
 import events.AccountValidationCompleted;
@@ -48,7 +46,7 @@ public class PaymentProcessor {
         }
         else{
             paymentCache.getPayment().setMerchantAccount(BankAccountNumber.from(event.getBankAccountNumber()));
-
+            paymentCache.getPayment().setMerchantId(MerchantId.from(event.getUserId()));
         }
         processAfterAllValues(paymentCache, event.getCorrelationId());
     }
@@ -56,9 +54,7 @@ public class PaymentProcessor {
     @Incoming("ValidateCustomerCompleted")
     public void processCustomerValidation(JsonObject request) {
         AccountValidationCompleted event = request.mapTo(AccountValidationCompleted.class);
-
         PaymentCache paymentCache = correlations.get(event.getCorrelationId());
-
 
         if (paymentCache == null) {
             correlations.put(event.getCorrelationId(), new PaymentCache());
@@ -71,6 +67,7 @@ public class PaymentProcessor {
         }
         else{
             paymentCache.getPayment().setCustomerAccount(BankAccountNumber.from(event.getBankAccountNumber()));
+            paymentCache.getPayment().setCustomerId(CustomerId.from(event.getUserId()));
         }
         processAfterAllValues(paymentCache, event.getCorrelationId());
     }
@@ -106,9 +103,14 @@ public class PaymentProcessor {
 
             PaymentCompleted completedEvent = new PaymentCompleted(
                     correlationId,
+                    null,
                     payment.getId().getValue(),
-                    null
+                    payment.getToken().getValue(),
+                    payment.getAmount().getValue(),
+                    payment.getMerchantId().getValue(),
+                    payment.getCustomerId().getValue()
             );
+
             paymentCompletedEmitter.send(completedEvent);
         } catch (BankServiceException_Exception e) {
             PaymentCompleted completedEvent = new PaymentCompleted(

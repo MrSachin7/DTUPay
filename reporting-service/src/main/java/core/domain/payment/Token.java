@@ -13,4 +13,10 @@ public class Token extends ValueObject {
     public String getValue() {
         return value;
     }
+
+    public static Token from(String value) {
+        Token token = new Token();
+        token.value = value;
+        return token;
+    }
 }

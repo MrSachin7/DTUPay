@@ -1,5 +1,6 @@
 package core.domainService;
 
+import core.domain.payment.Payment;
 import core.domain.payment.PaymentRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -12,7 +13,8 @@ public class PaymentService {
         this.repository = repository;
     }
 
-    public void addPayment() {
+    public void addPayment(Payment payment) {
+        repository.add(payment);
     }
 
 }

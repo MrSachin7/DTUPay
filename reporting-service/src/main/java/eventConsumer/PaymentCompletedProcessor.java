@@ -1,5 +1,6 @@
 package eventConsumer;
 
+import core.domain.payment.*;
 import core.domainService.PaymentService;
 import events.PaymentCompleted;
 import io.vertx.core.json.JsonObject;
@@ -22,7 +23,15 @@ public class PaymentCompletedProcessor {
         if (!event.wasSuccessful())
             return;
 
-        paymentService.addPayment();
+        Payment payment = Payment.from(
+                PaymentId.from(event.getPaymentId()),
+                Amount.from(event.getAmount()),
+                CustomerId.from(event.getCustomerId()),
+                MerchantId.from(event.getMerchantId()),
+                Token.from(event.getToken())
+        );
+
+        paymentService.addPayment(payment);
     }
 
 }

@@ -13,15 +13,17 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     @Override
     public Payment find(PaymentId paymentId) {
-        return null;
+        return payments.get(paymentId);
     }
 
     @Override
     public void add(Payment aggregate) {
+        payments.put(aggregate.getId(), aggregate);
     }
 
     @Override
     public void remove(Payment aggregate) {
+        payments.remove(aggregate.getId());
     }
 
     @Override

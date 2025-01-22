@@ -7,6 +7,7 @@ public class Payment extends Aggregate<PaymentId> {
     private CustomerId customerId;
     private MerchantId merchantId;
     private Token token;
+    private TimeStamp timeStamp;
 
     private Payment() {
     }
@@ -19,6 +20,7 @@ public class Payment extends Aggregate<PaymentId> {
         payment.customerId = customerId;
         payment.merchantId = merchantId;
         payment.token = token;
+        payment.timeStamp = TimeStamp.now();
         return payment;
     }
 
@@ -36,5 +38,9 @@ public class Payment extends Aggregate<PaymentId> {
 
     public Token getToken() {
         return token;
+    }
+
+    public TimeStamp getTimeStamp() {
+        return timeStamp;
     }
 }

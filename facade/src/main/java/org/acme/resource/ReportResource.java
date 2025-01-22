@@ -20,7 +20,7 @@ public class ReportResource {
     public Response getReports() {
         try {
             reportService.getReportsForAllPayments();
-            return null;
+
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }

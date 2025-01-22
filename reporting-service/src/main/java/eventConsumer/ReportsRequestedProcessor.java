@@ -36,8 +36,7 @@ public class ReportsRequestedProcessor {
         List<ReportsRetrieved.PaymentData> paymentDatas = payments.stream().map(payment -> {
             ReportsRetrieved.PaymentData paymentData = new ReportsRetrieved.PaymentData();
 
-            if (payment.getCustomerId() != null)
-            {
+            if (payment.getCustomerId() != null) {
                 paymentData.setCustomerId(payment.getCustomerId().getValue());
             }
 
@@ -48,7 +47,7 @@ public class ReportsRequestedProcessor {
             return paymentData;
         }).toList();
 
-        return new ReportsRetrieved(event.getCorrelationId(), paymentDatas)
+        return new ReportsRetrieved(event.getCorrelationId(), paymentDatas);
     }
 
 }

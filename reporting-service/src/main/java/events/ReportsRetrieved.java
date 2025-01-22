@@ -2,6 +2,7 @@ package events;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RegisterForReflection
@@ -29,12 +30,26 @@ public class ReportsRetrieved {
         this.correlationId = correlationId;
     }
 
+    public List<PaymentData> getPaymentData() {
+        return paymentData;
+    }
+
     public static class PaymentData {
 
+        private String paymentId;
         private String customerId;
         private String merchantId;
         private String token;
         private double amount;
+        private LocalDateTime timeStamp;
+
+        public String getPaymentId() {
+            return paymentId;
+        }
+
+        public void setPaymentId(String paymentId) {
+            this.paymentId = paymentId;
+        }
 
         public String getCustomerId() {
             return customerId;
@@ -68,5 +83,12 @@ public class ReportsRetrieved {
             this.amount = amount;
         }
 
+        public LocalDateTime getTimeStamp() {
+            return timeStamp;
+        }
+
+        public void setTimeStamp(LocalDateTime timeStamp) {
+            this.timeStamp = timeStamp;
+        }
     }
 }

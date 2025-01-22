@@ -8,6 +8,7 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,7 +18,7 @@ public class ReportService {
 
     private final Emitter<ReportsRequested> reportsRequestedEmitter;
 
-    private final ConcurrentHashMap<String, CompletableFuture<String>>
+    private final ConcurrentHashMap<String, CompletableFuture<List<ReportsRetrieved.PaymentData>>>
             coRelations = new ConcurrentHashMap<>();
 
     public ReportService(@Channel("ReportsRequested") Emitter<ReportsRequested> reportsRequestedEmitter) {
@@ -26,7 +27,7 @@ public class ReportService {
 
     public void getReportsForAllPayments() {
         ReportsRequested event  = new ReportsRequested(UUID.randomUUID().toString());
-        CompletableFuture<String> responseFuture = new CompletableFuture<>();
+        CompletableFuture<List<ReportsRetrieved.PaymentData>> responseFuture = new CompletableFuture<>();
         coRelations.put(event.getCorrelationId(), responseFuture);
 
         try {
@@ -41,9 +42,9 @@ public class ReportService {
     @Incoming("ReportsRetrieved")
     public void process(JsonObject request) {
         ReportsRetrieved event = request.mapTo(ReportsRetrieved.class);
-        CompletableFuture<List<Payment>> future = coRelations.remove(event.getCorrelationId());
+        CompletableFuture<List<ReportsRetrieved.PaymentData>> future = coRelations.remove(event.getCorrelationId());
 
-        future.complete(event.getReport());
+        future.complete(event.getPaymentData());
     }
 
 }
