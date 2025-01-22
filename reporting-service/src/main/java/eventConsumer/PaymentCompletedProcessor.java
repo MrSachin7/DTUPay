@@ -23,6 +23,8 @@ public class PaymentCompletedProcessor {
         if (!event.wasSuccessful())
             return;
 
+        System.out.println("PaymentCompleted: " + event.getCorrelationId());
+
         Payment payment = Payment.from(
                 PaymentId.from(event.getPaymentId()),
                 Amount.from(event.getAmount()),

@@ -2,6 +2,7 @@ package org.acme.service;
 
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.acme.dto.GenerateReportsResponse;
 import org.acme.events.ReportsRequested;
 import org.acme.events.ReportsRetrieved;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -25,7 +26,7 @@ public class ReportService {
         this.reportsRequestedEmitter = reportsRequestedEmitter;
     }
 
-    public void getReportsForAllPayments() {
+    public GenerateReportsResponse getReportsForAllPayments() {
         ReportsRequested event  = new ReportsRequested(UUID.randomUUID().toString());
         CompletableFuture<List<ReportsRetrieved.PaymentData>> responseFuture = new CompletableFuture<>();
         coRelations.put(event.getCorrelationId(), responseFuture);
@@ -33,6 +34,9 @@ public class ReportService {
         try {
             System.out.println("Sending request to retrieve report of all payments");
             reportsRequestedEmitter.send(event);
+
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
+            return new GenerateReportsResponse(paymentData);
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
             throw new RuntimeException("Failed to retrieve report of all payments", e);

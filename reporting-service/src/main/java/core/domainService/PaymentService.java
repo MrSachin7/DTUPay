@@ -14,6 +14,7 @@ public class PaymentService {
     }
 
     public void addPayment(Payment payment) {
+        System.out.println("Adding payment to repository   "+  payment.getId().getValue());
         repository.add(payment);
     }
 
