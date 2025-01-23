@@ -131,23 +131,20 @@ public class PaymentSteps {
     @When("the merchant initiates a payment for {int} kr by the customer with the valid token")
     public void theMerchantInitiatesAPaymentForKrByTheCustomerWithTheValidToken(int amount) {
         StartPaymentRequest request = new StartPaymentRequest(generateTokenResponse.tokens().getFirst(), amount);
-        wasPaymentSuccessful = merchantService.pay(registerMerchantResponse.id(),request);
+        wasPaymentSuccessful = merchantService.pay(registerMerchantResponse.id(),request) != null;
     }
 
     @When("the merchant initiates a payment for {int} kr by the customer with the invalid token")
     public void theMerchantInitiatesAPaymentForKrByTheCustomerWithTheInvalidToken(int amount) {
         // With a random token that doesnt exist
         StartPaymentRequest request = new StartPaymentRequest(UUID.randomUUID().toString(), amount);
-        wasPaymentSuccessful = merchantService.pay(registerMerchantResponse.id(), request);
-
+        wasPaymentSuccessful = merchantService.pay(registerMerchantResponse.id(), request) != null;
     }
-
 
     @Then("the payment should be successful")
     public void thePaymentShouldBeSuccessful() {
         assertTrue(wasPaymentSuccessful);
     }
-
 
     @Then("the payment should not be successful")
     public void thePaymentShouldNotBeSuccessful() {

@@ -25,6 +25,7 @@ public class TeardownTests {
             customerService.unregisterCustomer(dtuPayAccount);
         }
         Users.dtuPayAccounts.clear();
+
     }
 
 }

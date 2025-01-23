@@ -8,7 +8,6 @@ import org.acme.events.GenerateTokenRequested;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;

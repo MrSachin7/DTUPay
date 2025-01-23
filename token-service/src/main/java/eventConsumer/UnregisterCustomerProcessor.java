@@ -10,8 +10,6 @@ import org.eclipse.microprofile.reactive.messaging.Incoming;
 public class UnregisterCustomerProcessor {
 
     private final TokenService tokenService;
-
-
     public UnregisterCustomerProcessor(TokenService tokenService) {
         this.tokenService = tokenService;
     }

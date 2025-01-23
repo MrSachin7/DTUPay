@@ -1,6 +1,4 @@
-package org.acme.dto;
-
-import org.acme.events.ReportsRetrieved;
+package dto;
 
 import java.util.List;
 

@@ -3,6 +3,7 @@ package org.acme.service;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.dto.GenerateReportsResponse;
+import org.acme.dto.ReportData;
 import org.acme.events.ReportType;
 import org.acme.events.ReportsRequested;
 import org.acme.events.ReportsRetrieved;
@@ -28,7 +29,7 @@ public class ReportService {
     }
 
     public GenerateReportsResponse getReportsForAllPayments() {
-        ReportsRequested event  = new ReportsRequested(UUID.randomUUID().toString());
+        ReportsRequested event = new ReportsRequested(UUID.randomUUID().toString());
         CompletableFuture<List<ReportsRetrieved.PaymentData>> responseFuture = new CompletableFuture<>();
         coRelations.put(event.getCorrelationId(), responseFuture);
 
@@ -37,7 +38,7 @@ public class ReportService {
             reportsRequestedEmitter.send(event);
 
             List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
-            return new GenerateReportsResponse(paymentData);
+            return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
             throw new RuntimeException("Failed to retrieve report of all payments", e);
@@ -45,7 +46,7 @@ public class ReportService {
     }
 
     public GenerateReportsResponse getReportsForCustomer(String customerId) {
-        ReportsRequested event  = new ReportsRequested(UUID.randomUUID().toString(), ReportType.CUSTOMER_REPORTS,
+        ReportsRequested event = new ReportsRequested(UUID.randomUUID().toString(), ReportType.CUSTOMER_REPORTS,
                 customerId);
         CompletableFuture<List<ReportsRetrieved.PaymentData>> responseFuture = new CompletableFuture<>();
         coRelations.put(event.getCorrelationId(), responseFuture);
@@ -55,7 +56,7 @@ public class ReportService {
             reportsRequestedEmitter.send(event);
 
             List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
-            return new GenerateReportsResponse(paymentData);
+            return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
             throw new RuntimeException("Failed to retrieve report of all payments", e);
@@ -63,8 +64,8 @@ public class ReportService {
     }
 
     public GenerateReportsResponse getReportsForMerchant(String merchantId) {
-        ReportsRequested event  = new ReportsRequested(UUID.randomUUID().toString(), ReportType.MERCHANT_REPORTS,
-            merchantId);
+        ReportsRequested event = new ReportsRequested(UUID.randomUUID().toString(), ReportType.MERCHANT_REPORTS,
+                merchantId);
         CompletableFuture<List<ReportsRetrieved.PaymentData>> responseFuture = new CompletableFuture<>();
         coRelations.put(event.getCorrelationId(), responseFuture);
 
@@ -73,7 +74,7 @@ public class ReportService {
             reportsRequestedEmitter.send(event);
 
             List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
-            return new GenerateReportsResponse(paymentData);
+            return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
             throw new RuntimeException("Failed to retrieve report of all payments", e);
@@ -86,5 +87,11 @@ public class ReportService {
         CompletableFuture<List<ReportsRetrieved.PaymentData>> future = coRelations.remove(event.getCorrelationId());
 
         future.complete(event.getPaymentData());
+    }
+
+    private List<ReportData> transformToReportData(List<ReportsRetrieved.PaymentData> paymentData) {
+        return paymentData.stream()
+                .map(data -> new ReportData(data.getMerchantId(), data.getToken(), data.getAmount(), data.getPaymentId(), data.getCustomerId()))
+                .toList();
     }
 }
