@@ -14,13 +14,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class UnregisterCustomerService {
+public class UnregisterService {
 
     private final Emitter<UnregisterCustomerRequested> customerRequestEmitter;
 
     private final ConcurrentHashMap<String, CompletableFuture<Void>> coRelations = new ConcurrentHashMap<>();
 
-    public UnregisterCustomerService(@Channel("UnregisterCustomerRequested") Emitter<UnregisterCustomerRequested> customerRequestEmitter) {
+    public UnregisterService(@Channel("UnregisterCustomerRequested") Emitter<UnregisterCustomerRequested> customerRequestEmitter) {
         this.customerRequestEmitter = customerRequestEmitter;
     }
 

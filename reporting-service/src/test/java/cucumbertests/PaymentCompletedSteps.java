@@ -9,11 +9,10 @@ import events.PaymentCompleted;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.vertx.core.json.JsonObject;
-import org.junit.Assert;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.mock;
@@ -43,7 +42,7 @@ public class PaymentCompletedSteps {
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString());
 
-        Assert.assertTrue(event.wasSuccessful());
+        assertTrue(event.wasSuccessful());
 
         processor.process(JsonObject.mapFrom(event));
     }
@@ -70,7 +69,7 @@ public class PaymentCompletedSteps {
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString());
 
-        Assert.assertFalse(event.wasSuccessful());
+        assertFalse(event.wasSuccessful());
 
         processor.process(JsonObject.mapFrom(event));
     }

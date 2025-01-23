@@ -17,7 +17,7 @@ public class ReportsRequestedProcessor {
 
     private final ReportService reportService;
 
-    private ReportsRequestedProcessor(ReportService reportService) {
+    public ReportsRequestedProcessor(ReportService reportService) {
         this.reportService = reportService;
     }
 
@@ -26,28 +26,54 @@ public class ReportsRequestedProcessor {
     public ReportsRetrieved process(JsonObject request) {
         ReportsRequested event = request.mapTo(ReportsRequested.class);
 
-        List<Payment> payments = switch (event.getReportType()) {
-            case ALL_REPORTS -> reportService.getReportsForAllPayments();
-            case CUSTOMER_REPORTS -> reportService.getReportsForCustomer(event.getId());
-            case MERCHANT_REPORTS -> reportService.getReportsForMerchant(event.getId());
-            default -> new ArrayList<>();
-        };
+        try {
+            if (event.getReportType() == null)
+                throw new IllegalArgumentException("Invalid report type requested");
 
-        List<ReportsRetrieved.PaymentData> paymentDatas = payments.stream().map(payment -> {
-            ReportsRetrieved.PaymentData paymentData = new ReportsRetrieved.PaymentData();
+            List<Payment> payments = getPayments(event);
 
-            if (payment.getCustomerId() != null) {
-                paymentData.setCustomerId(payment.getCustomerId().getValue());
-            }
+            List<ReportsRetrieved.PaymentData> paymentData = payments.stream().map(payment -> {
+                ReportsRetrieved.PaymentData data = new ReportsRetrieved.PaymentData();
 
-            paymentData.setMerchantId(payment.getMerchantId().getValue());
-            paymentData.setToken(payment.getToken().getValue());
-            paymentData.setAmount(payment.getAmount().getValue());
+                if (payment.getCustomerId() != null)
+                    data.setCustomerId(payment.getCustomerId().getValue());
 
-            return paymentData;
-        }).toList();
+                data.setMerchantId(payment.getMerchantId().getValue());
+                data.setToken(payment.getToken().getValue());
+                data.setAmount(payment.getAmount().getValue());
 
-        return new ReportsRetrieved(event.getCorrelationId(), paymentDatas);
+                return data;
+            }).toList();
+
+            return new ReportsRetrieved(event.getCorrelationId(), paymentData);
+        } catch (Exception e) {
+            String errorMessage = e.getMessage();
+            System.err.println("Error processing ReportsRequested event: " + errorMessage);
+            ReportsRetrieved responseEvent = new ReportsRetrieved(event.getCorrelationId(), null);
+            responseEvent.setError(errorMessage);
+
+            return responseEvent;
+        }
+    }
+
+    private List<Payment> getPayments(ReportsRequested event) {
+        return switch (event.getReportType())
+                {
+                    case ALL_REPORTS -> reportService.getReportsForAllPayments();
+                    case CUSTOMER_REPORTS -> {
+                        if (event.getId() == null)
+                            throw new IllegalArgumentException("Customer ID is required");
+
+                        yield reportService.getReportsForCustomer(event.getId());
+                    }
+                    case MERCHANT_REPORTS -> {
+                        if (event.getId() == null)
+                            throw new IllegalArgumentException("Merchant ID is required");
+
+                        yield reportService.getReportsForMerchant(event.getId());
+                    }
+                    default -> throw new IllegalArgumentException("Unsupported report type");
+                };
     }
 
 }
