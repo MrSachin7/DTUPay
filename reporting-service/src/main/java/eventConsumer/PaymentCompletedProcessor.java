@@ -12,7 +12,7 @@ public class PaymentCompletedProcessor {
 
     private final PaymentService paymentService;
 
-    private PaymentCompletedProcessor(PaymentService paymentService) {
+    public PaymentCompletedProcessor(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 

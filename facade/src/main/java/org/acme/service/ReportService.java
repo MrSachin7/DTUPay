@@ -3,6 +3,7 @@ package org.acme.service;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.acme.dto.GenerateReportsResponse;
+import org.acme.events.ReportType;
 import org.acme.events.ReportsRequested;
 import org.acme.events.ReportsRetrieved;
 import org.eclipse.microprofile.reactive.messaging.Channel;
@@ -43,6 +44,42 @@ public class ReportService {
         }
     }
 
+    public GenerateReportsResponse getReportsForCustomer(String customerId) {
+        ReportsRequested event  = new ReportsRequested(UUID.randomUUID().toString(), ReportType.CUSTOMER_REPORTS,
+                customerId);
+        CompletableFuture<List<ReportsRetrieved.PaymentData>> responseFuture = new CompletableFuture<>();
+        coRelations.put(event.getCorrelationId(), responseFuture);
+
+        try {
+            System.out.println("Sending request to retrieve report of customer payments");
+            reportsRequestedEmitter.send(event);
+
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
+            return new GenerateReportsResponse(paymentData);
+        } catch (Exception e) {
+            coRelations.remove(event.getCorrelationId());
+            throw new RuntimeException("Failed to retrieve report of all payments", e);
+        }
+    }
+
+    public GenerateReportsResponse getReportsForMerchant(String merchantId) {
+        ReportsRequested event  = new ReportsRequested(UUID.randomUUID().toString(), ReportType.MERCHANT_REPORTS,
+            merchantId);
+        CompletableFuture<List<ReportsRetrieved.PaymentData>> responseFuture = new CompletableFuture<>();
+        coRelations.put(event.getCorrelationId(), responseFuture);
+
+        try {
+            System.out.println("Sending request to retrieve report of merchant payments");
+            reportsRequestedEmitter.send(event);
+
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
+            return new GenerateReportsResponse(paymentData);
+        } catch (Exception e) {
+            coRelations.remove(event.getCorrelationId());
+            throw new RuntimeException("Failed to retrieve report of all payments", e);
+        }
+    }
+
     @Incoming("ReportsRetrieved")
     public void process(JsonObject request) {
         ReportsRetrieved event = request.mapTo(ReportsRetrieved.class);
@@ -50,5 +87,4 @@ public class ReportService {
 
         future.complete(event.getPaymentData());
     }
-
 }
