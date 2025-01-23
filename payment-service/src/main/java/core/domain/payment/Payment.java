@@ -4,8 +4,8 @@ import core.domain.common.Aggregate;
 
 public class Payment extends Aggregate<PaymentId> {
     private Amount amount;
-    private BankAccountNumber customerAccount;
-    private BankAccountNumber merchantAccount;
+    private BankAccountNumber CustomerBankAccount;
+    private BankAccountNumber MerchantBankAccount;
     private MerchantId merchantId;
     private CustomerId customerId;
     private Token token;
@@ -23,20 +23,20 @@ public class Payment extends Aggregate<PaymentId> {
         this.amount = amount;
     }
 
-    public void setCustomerAccount(BankAccountNumber customerAccount) {
-        this.customerAccount = customerAccount;
+    public void setCustomerBankAccount(BankAccountNumber customerBankAccount) {
+        this.CustomerBankAccount = customerBankAccount;
     }
 
-    public void setMerchantAccount(BankAccountNumber merchantAccount) {
-        this.merchantAccount = merchantAccount;
+    public void setMerchantBankAccount(BankAccountNumber merchantBankAccount) {
+        this.MerchantBankAccount = merchantBankAccount;
     }
 
-    public BankAccountNumber getCustomerAccount() {
-        return customerAccount;
+    public BankAccountNumber getCustomerBankAccount() {
+        return CustomerBankAccount;
     }
 
-    public BankAccountNumber getMerchantAccount() {
-        return merchantAccount;
+    public BankAccountNumber getMerchantBankAccount() {
+        return MerchantBankAccount;
     }
 
     public Amount getAmount() {

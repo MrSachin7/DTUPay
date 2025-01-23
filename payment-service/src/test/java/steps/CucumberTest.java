@@ -1,15 +1,15 @@
-package features;
+package steps;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
-import io.cucumber.junit.CucumberOptions.SnippetType;
-
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin="summary"
-        , publish= false
-        , features = "features"  // directory of the feature files
-        , snippets = SnippetType.CAMELCASE
-)public class CucumberTest {
+@CucumberOptions(
+        publish = false,
+        features = "features",
+        snippets = CucumberOptions.SnippetType.CAMELCASE
+)
+public class CucumberTest {
+    // This will run all the Cucumber tests in the project
 }

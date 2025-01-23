@@ -1,22 +1,27 @@
-package features;
+package steps;
 
-import core.domain.common.Repository;
+import core.domainService.PaymentService;
+import dtu.ws.fastmoney.BankService;
+import dtu.ws.fastmoney.BankServiceException_Exception;
+import dtu.ws.fastmoney.BankServiceService;
+import dtu.ws.fastmoney.User;
 import eventConsumer.PaymentProcessor;
 import events.AccountValidationCompleted;
 import events.PaymentCompleted;
 import events.PaymentRequested;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.vertx.core.json.JsonObject;
-import persistance.RepositoryImpl
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 import static org.junit.Assert.*;
 
-public class PaymentServiceSteps {
+public class PaymentSteps {
 
-    // private final Repository accountrepository;   // Not strictly used in example
-    private final AccountRepository accountRepository;
-    private final PaymentProcessor paymentprocessor;
-
+    private PaymentProcessor paymentprocessor;
+    private BankService bankService;
     private PaymentRequested paymentrequested;
     private PaymentCompleted paymentcompleted;
 
@@ -26,15 +31,14 @@ public class PaymentServiceSteps {
 
     private boolean paymentProcessed;
     private String paymentId;
-    private String correlationId;
 
-    public PaymentServiceSteps(
-            Repository accountrepository,
-            PaymentProcessor paymentprocessor) {
-        this.accountrepository = new RepositoryImpl();
-        this.paymentprocessor = paymentprocessor;
+    private Emitter<PaymentCompleted> paymentCompletedEmitter;
+
+    public PaymentSteps () {
+        bankService = new BankServiceService().getBankServicePort();
+        PaymentService paymentservice  = new PaymentService(bankService);
+        this.paymentprocessor = new PaymentProcessor(paymentCompletedEmitter,paymentservice);
     }
-
 
     @Given("^a customer account \"([^\"]*)\", merchant account \"([^\"]*)\", and amount of (\\d+)\\.(\\d+)$")
     public void aCustomerAccountMerchantAccountAndAmountOf(String customerAccount,
@@ -51,7 +55,7 @@ public class PaymentServiceSteps {
                                                                                       String merchAcc,
                                                                                       int amountWhole,
                                                                                       int amountFraction) {
-        this.correlationId = "TEST-CORR-ID-" + System.currentTimeMillis();
+        String correlationId = "TEST-CORR-ID-" + System.currentTimeMillis();
 
         // Build and send the PaymentRequested event
         paymentrequested = new PaymentRequested(

@@ -17,20 +17,19 @@ public class PaymentService {
     public PaymentService(BankService bankService) {
         this.bankService = bankService;
     }
-
-
+    
     public String processPayment(String customerAccount, String merchantAccount, double amount) throws BankServiceException_Exception {
 
         Payment payment = Payment.newPayment();
         payment.setAmount(Amount.from(amount));
-        payment.setCustomerAccount(BankAccountNumber.from(customerAccount));
-        payment.setMerchantAccount(BankAccountNumber.from(merchantAccount));
+        payment.setCustomerBankAccount(BankAccountNumber.from(customerAccount));
+        payment.setMerchantBankAccount(BankAccountNumber.from(merchantAccount));
 
 
-        System.out.println("Transferring moneyyyyy from " + payment.getCustomerAccount().getValue() + " to " + payment.getMerchantAccount().getValue());
+        System.out.println("Transferring money from " + payment.getCustomerBankAccount().getValue() + " to " + payment.getMerchantBankAccount().getValue());
 
-        bankService.transferMoneyFromTo(payment.getCustomerAccount().getValue(),
-                payment.getMerchantAccount().getValue(),
+        bankService.transferMoneyFromTo(payment.getCustomerBankAccount().getValue(),
+                payment.getMerchantBankAccount().getValue(),
                 BigDecimal.valueOf(payment.getAmount().getValue()),
                 "Dummy description");
 
