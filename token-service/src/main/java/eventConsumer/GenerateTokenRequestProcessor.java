@@ -24,13 +24,15 @@ public class GenerateTokenRequestProcessor {
     @Incoming("GenerateTokenRequested")
     @Outgoing("GenerateTokenCompleted")
     public GenerateTokenCompleted process(JsonObject request) {
-        System.out.println("Processing token request");
         GenerateTokenRequested event = request.mapTo(GenerateTokenRequested.class);
+        System.out.println("GenerateTokenRequested event received: " + event.getCoRelationId());
 
         try {
             List<String> tokens = tokenService.generateTokens(event.getCustomerId(), event.getAmount());
+            System.out.println("GenerateTokenCompleted event sent with success: " + event.getCoRelationId());
             return new GenerateTokenCompleted(event.getCoRelationId(), tokens);
         } catch (TokenException | NotFoundException e) {
+            System.out.println("GenerateTokenCompleted event sent with failure: " + event.getCoRelationId());
             return new GenerateTokenCompleted(event.getCoRelationId(), e.getMessage());
         }
     }

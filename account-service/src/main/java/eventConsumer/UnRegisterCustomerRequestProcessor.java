@@ -12,29 +12,31 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
+import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 @ApplicationScoped
 public class UnRegisterCustomerRequestProcessor {
 
     private final AccountService accountService;
 
-    private final Emitter<UnregisterCustomerCompleted> unregisterCustomerCompletedEmitter;
 
-    public UnRegisterCustomerRequestProcessor(AccountService accountService, @Channel("UnregisterCustomerCompleted") Emitter<UnregisterCustomerCompleted> unregisterCustomerCompletedEmitter) {
+    public UnRegisterCustomerRequestProcessor(AccountService accountService) {
         this.accountService = accountService;
-        this.unregisterCustomerCompletedEmitter = unregisterCustomerCompletedEmitter;
     }
 
     @Incoming("UnregisterCustomerRequested")
-    public void process(JsonObject obj){
+    @Outgoing("UnregisterCustomerCompleted")
+    public UnregisterCustomerCompleted process(JsonObject obj){
         UnregisterCustomerRequested event = obj.mapTo(UnregisterCustomerRequested.class);
+        System.out.println("UnregisterCustomerRequested event received"+ event.getCustomerId());
         try {
              accountService.unregisterAccount(event.getCustomerId());
-            unregisterCustomerCompletedEmitter.send(new UnregisterCustomerCompleted(event.getCoRelationId(),null));
+            System.out.println("UnregisterCustomerCompleted event sent with success"+ event.getCoRelationId());
+            return (new UnregisterCustomerCompleted(event.getCoRelationId(),event.getCustomerId(),null));
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            unregisterCustomerCompletedEmitter.send(new UnregisterCustomerCompleted(event.getCoRelationId(), e.getMessage()));
+            System.out.println("UnregisterCustomerCompleted event sent with failure"+ event.getCoRelationId());
+            return (new UnregisterCustomerCompleted(event.getCoRelationId(), null, e.getMessage()));
         }
     }
 

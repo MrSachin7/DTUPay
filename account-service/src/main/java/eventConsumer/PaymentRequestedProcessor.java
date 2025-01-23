@@ -21,15 +21,18 @@ public class PaymentRequestedProcessor {
     @Outgoing("ValidateMerchantCompleted")
     public AccountValidationCompleted process(JsonObject request){
         PaymentRequested event = request.mapTo(PaymentRequested.class);
+        System.out.println("PaymentRequestedEvent received"+ event.getCorrelationId());
 
         try {
             String bankAccountNumber = accountService.retrieveBankAccount(event.getMerchantId());
+            System.out.println("ValidateMerchantCompleted event sent with success"+ event.getCorrelationId());
             return new AccountValidationCompleted(event.getCorrelationId(),
                     event.getMerchantId(),
                     bankAccountNumber,
                     null
             );
         } catch (Exception e) {
+            System.out.println("ValidateMerchantCompleted event sent with failure"+ event.getCorrelationId());
             return new AccountValidationCompleted(event.getCorrelationId(),
                     event.getMerchantId(),
                     null,
