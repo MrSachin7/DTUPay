@@ -18,8 +18,6 @@ services:
     container_name: facade-service
     ports:
       - "8080:8080"
-    networks:
-      - sw-network
     restart: on-failure
     depends_on:
       rabitt-mqtt:
@@ -28,8 +26,6 @@ services:
   token:
     build: ../token-service
     container_name: token-service
-    networks:
-      - sw-network
     restart: on-failure
     depends_on:
       rabitt-mqtt:
@@ -38,8 +34,6 @@ services:
   account:
     build: ../account-service
     container_name: account-service
-    networks:
-      - sw-network
     restart: on-failure
     depends_on:
       rabitt-mqtt:
@@ -48,8 +42,6 @@ services:
   payment:
     build: ../payment-service
     container_name: payment-service
-    networks:
-      - sw-network
     restart: on-failure
     depends_on:
       rabitt-mqtt:
@@ -58,12 +50,7 @@ services:
   reporting:
     build: ../reporting-service
     container_name: reporting-service
-    networks:
-      - sw-network
     restart: on-failure
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
-
-networks:
-  pay-network:
