@@ -14,6 +14,8 @@ public class PaymentProcessor {
     private final Emitter<PaymentCompleted> paymentCompletedEmitter;
     private final PaymentService paymentService;
 
+    private volatile PaymentCompleted lastCompletedEvent;
+
     public PaymentProcessor(@Channel("PaymentCompleted") Emitter<PaymentCompleted> paymentCompletedEmitter,
                             PaymentService paymentService) {
         this.paymentCompletedEmitter = paymentCompletedEmitter;
@@ -112,8 +114,13 @@ public class PaymentProcessor {
     private void emitPaymentCompleted(String correlationId, String paymentId, String error, String token, double amount, String merchantId, String customerId) {
         PaymentCompleted completedEvent = new PaymentCompleted(correlationId, error, paymentId, token, amount, merchantId, customerId);
         paymentCompletedEmitter.send(completedEvent);
+        this.lastCompletedEvent = completedEvent;
+        paymentCompletedEmitter.send(completedEvent);
     }
 
+    public PaymentCompleted getLastCompletedEvent() {
+        return lastCompletedEvent;
+    }
     private static class PaymentContext {
         String customerAccount;
         String merchantAccount;
