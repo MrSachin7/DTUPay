@@ -25,6 +25,7 @@ public class ReportsRequestedProcessor {
     @Outgoing("ReportsRetrieved")
     public ReportsRetrieved process(JsonObject request) {
         ReportsRequested event = request.mapTo(ReportsRequested.class);
+        System.out.println("ReportsRequested event received: " + event.getCorrelationId());
 
         try {
             if (event.getReportType() == null)
@@ -34,7 +35,7 @@ public class ReportsRequestedProcessor {
 
             List<ReportsRetrieved.PaymentData> paymentData = payments.stream().map(payment -> {
                 ReportsRetrieved.PaymentData data = new ReportsRetrieved.PaymentData();
-
+                data.setPaymentId(payment.getId().getValue());
                 if (payment.getCustomerId() != null)
                     data.setCustomerId(payment.getCustomerId().getValue());
 
@@ -45,13 +46,14 @@ public class ReportsRequestedProcessor {
                 return data;
             }).toList();
 
+            System.out.println("ReportsRetrieved event sent with success: " + event.getCorrelationId());
             return new ReportsRetrieved(event.getCorrelationId(), paymentData);
         } catch (Exception e) {
             String errorMessage = e.getMessage();
             System.err.println("Error processing ReportsRequested event: " + errorMessage);
+            System.out.println("ReportsRetrieved event sent with failure: " + event.getCorrelationId());
             ReportsRetrieved responseEvent = new ReportsRetrieved(event.getCorrelationId(), null);
             responseEvent.setError(errorMessage);
-
             return responseEvent;
         }
     }

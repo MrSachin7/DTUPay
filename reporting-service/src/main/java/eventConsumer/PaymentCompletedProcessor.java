@@ -19,12 +19,12 @@ public class PaymentCompletedProcessor {
     @Incoming("PaymentCompleted")
     public void process(JsonObject request) {
         PaymentCompleted event = request.mapTo(PaymentCompleted.class);
+        System.out.println("PaymentCompleted event received: " + event.getCorrelationId());
 
-        if (!event.wasSuccessful())
+        if (!event.wasSuccessful()) {
+            System.out.println("Ignoring the failed event: " + event.getCorrelationId() + " with error: " + event.getError());
             return;
-
-        System.out.println("PaymentCompleted: " + event.getCorrelationId());
-
+        }
         Payment payment = Payment.from(
                 PaymentId.from(event.getPaymentId()),
                 Amount.from(event.getAmount()),

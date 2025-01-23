@@ -30,14 +30,6 @@ public class Customer extends Aggregate<CustomerId> {
         return tokens.getTokens().stream().map(UUID::toString).toList();
     }
 
-    public void validateToken(String token) throws NotFoundException {
-        tokens.validateToken(token);
-    }
-
-    public void removeToken(String tokenUsed) {
-        tokens.removeToken(tokenUsed);
-    }
-
     public void deleteToken(String token) {
         tokens.deleteToken(token);
     }

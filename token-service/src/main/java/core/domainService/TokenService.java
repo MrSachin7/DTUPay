@@ -27,10 +27,6 @@ public class TokenService {
         return customer.getTokens();
     }
 
-    public void removeToken(String customerId, String tokenUsed) {
-        Customer customer = repository.find(CustomerId.from(customerId));
-        customer.removeToken(tokenUsed);
-    }
 
     public String validateToken(String token) throws NotFoundException {
         Customer customer = repository.findByToken(token);

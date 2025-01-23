@@ -31,6 +31,8 @@ public class MerchantService {
     public String pay(String merchantId, StartPaymentRequest request){
         try(Client client = ClientBuilder.newClient()){
             WebTarget target = client.target(BASE_URL).path(merchantId + "/payments");
+            System.out.println("------------------------------------------------");
+            System.out.println("Sending payment request with token  :"+ request.token());
 
             try(Response response = target.request().post(Entity.entity(request, "application/json"))){
                 int statusCode = response.getStatus();

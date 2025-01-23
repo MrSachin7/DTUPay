@@ -35,18 +35,8 @@ public class Tokens extends ValueObject {
         for (int i = 0; i < amount; i++) {
             tokens.add(UUID.randomUUID());
         }
-    }
-
-    public void validateToken(String token) throws NotFoundException {
-        UUID requestedToken = UUID.fromString(token);
-        if (!tokens.contains(requestedToken)) {
-            throw new NotFoundException("Token does not exist");
-        }
-    }
-
-    public void removeToken(String token) {
-        UUID tokenToRemove = UUID.fromString(token);
-        tokens.remove(tokenToRemove);
+        System.out.println("Generated tokens: ");
+        tokens.forEach(System.out::println);
     }
 
     public List<UUID> getTokens() {
@@ -55,12 +45,12 @@ public class Tokens extends ValueObject {
 
     @Override
     protected Object[] getEqualityComponents() {
-        return new Object[0];
+        return new Object[]{tokens};
     }
 
 
     public void deleteToken(String token) {
         UUID tokenToRemove = UUID.fromString(token);
-        tokens.removeIf(t -> t.equals(tokenToRemove));
+        tokens.remove(tokenToRemove);
     }
 }

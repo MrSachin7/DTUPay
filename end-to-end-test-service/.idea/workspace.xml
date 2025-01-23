@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a418a46-eb20-4e73-9a29-4db574056ef9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/reporting.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/reporting.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/MerchantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MerchantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ReportService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/features/TokenSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/TokenSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/GenerateReportsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/GenerateReportsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/CustomerId.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/CustomerId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/PaymentCompletedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/PaymentCompletedProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/ReportsRequestedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/ReportsRequestedProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Tokens.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Tokens.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domainService/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domainService/TokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/persistence/CustomerRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/persistence/CustomerRepositoryImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,17 +44,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Cucumber Java.Scenario: All report generation.executor": "Run",
+    "Cucumber Java.Scenario: Report generation for a specific customer.executor": "Run",
+    "Cucumber Java.Scenario: Successful registration.executor": "Run",
+    "JUnit.CucumberTest.executor": "Run",
+    "git-widget-placeholder": "main",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nepal\OneDrive\Desktop\DTUPay\end-to-end-test-service\src\main\java" />
     </key>
   </component>
-  <component name="RunManager" selected="Cucumber Java.Feature: reporting">
+  <component name="RunManager" selected="JUnit.CucumberTest">
     <configuration name="Feature: reporting" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/features/reporting.feature" />
@@ -68,14 +79,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Feature: tokens" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+    <configuration name="Scenario: All report generation" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/reporting.feature" />
       <option name="GLUE" value="features" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="Test" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
-      <option name="SUGGESTED_NAME" value="Feature: tokens" />
+      <option name="NAME_FILTER" value="^All report generation$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^All report generation$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: All report generation" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -87,15 +99,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Scenario: Successful token generation not for the first time when the user only one token left" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+    <configuration name="Scenario: Report generation for a specific customer" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/reporting.feature" />
       <option name="GLUE" value="features" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="Test" />
-      <option name="NAME_FILTER" value="^Successful token generation not for the first time when the user only one token left$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Successful token generation not for the first time when the user only one token left$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Successful token generation not for the first time when the user only one token left" />
+      <option name="NAME_FILTER" value="^Report generation for a specific customer$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Report generation for a specific customer$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Report generation for a specific customer" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -107,17 +119,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CucumberTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="end-to-end-test-service" />
+    <configuration name="Scenario: Successful registration" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/register.feature" />
+      <option name="GLUE" value="features" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="Test" />
+      <option name="NAME_FILTER" value="^Successful registration$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Successful registration$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Successful registration" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="features.*" />
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="features" />
-      <option name="MAIN_CLASS_NAME" value="features.CucumberTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -133,6 +150,19 @@
       <option name="PACKAGE_NAME" value="features" />
       <option name="MAIN_CLASS_NAME" value="features.CucumberTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Test" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -176,11 +206,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cucumber Java.Feature: reporting" />
-        <item itemvalue="JUnit.CucumberTest (1)" />
         <item itemvalue="JUnit.CucumberTest" />
-        <item itemvalue="Cucumber Java.Feature: tokens" />
-        <item itemvalue="Cucumber Java.Scenario: Successful token generation not for the first time when the user only one token left" />
+        <item itemvalue="Cucumber Java.Scenario: Report generation for a specific customer" />
+        <item itemvalue="Cucumber Java.Scenario: All report generation" />
+        <item itemvalue="Cucumber Java.Scenario: Successful registration" />
+        <item itemvalue="Cucumber Java.Feature: reporting" />
       </list>
     </recent_temporary>
   </component>

@@ -44,6 +44,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer findByToken(String token) {
+        System.out.println("Looking for customer with token: " + token);
         return customers.values().stream()
                 .filter(customer -> customer.getTokens().contains(token))
                 .findFirst()

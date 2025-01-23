@@ -2,6 +2,7 @@ package features;
 
 import dto.*;
 import dtu.ws.fastmoney.BankService;
+import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
 import dtu.ws.fastmoney.User;
 import io.cucumber.java.en.And;
@@ -26,7 +27,7 @@ public class ReportSteps {
 
     private RegisterCustomerResponse registerCustomerResponse1, registerMerchantResponse, registerCustomerResponse2;
     private GenerateReportsResponse generateReportsResponse;
-    private GenerateTokenResponse generateTokenResponse1;
+    private GenerateTokenResponse firstCustomerTokens;
 
     private Exception retrieveReportsException;
 
@@ -47,9 +48,9 @@ public class ReportSteps {
     public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystem() throws Exception {
         // Customer registration
         User customer1 = new User();
-        customer1.setCprNumber("1230257842");
-        customer1.setFirstName("Tomas");
-        customer1.setLastName("Durnek");
+        customer1.setCprNumber("1523678940");
+        customer1.setFirstName("Tomass");
+        customer1.setLastName("Durneks");
         String customerBankAccount1 = bankService.createAccountWithBalance(customer1, BigDecimal.valueOf(10000));
         Users.bankAccounts.add(customerBankAccount1);
 
@@ -58,9 +59,9 @@ public class ReportSteps {
 
         // Second customer registration
         User customer2 = new User();
-        customer2.setCprNumber("1820257842");
-        customer2.setFirstName("Satish");
-        customer2.setLastName("Gurung");
+        customer2.setCprNumber("1578245630");
+        customer2.setFirstName("Satishs");
+        customer2.setLastName("Gurungs");
         String customerBankAccount2 = bankService.createAccountWithBalance(customer2, BigDecimal.valueOf(10000));
         Users.bankAccounts.add(customerBankAccount2);
         registerCustomerResponse2 = customerService.registerCustomer(new RegisterCustomerRequest(customer2.getFirstName(), customer2.getLastName(), customer2.getCprNumber(), customerBankAccount2));
@@ -68,9 +69,9 @@ public class ReportSteps {
 
         // Merchant registration
         User merchant = new User();
-        merchant.setCprNumber("4258931476");
-        merchant.setFirstName("Sachin");
-        merchant.setLastName("Baral");
+        merchant.setCprNumber("1245893578");
+        merchant.setFirstName("Sachins");
+        merchant.setLastName("Barals");
         String merchantBankAccount = bankService.createAccountWithBalance(merchant, BigDecimal.valueOf(10000));
         Users.bankAccounts.add(merchantBankAccount);
         registerMerchantResponse = merchantService.registerMerchant(new RegisterCustomerRequest(merchant.getFirstName(), merchant.getLastName(), merchant.getCprNumber(), merchantBankAccount));
@@ -80,25 +81,27 @@ public class ReportSteps {
         assertNotNull(registerMerchantResponse);
         assertNotNull(registerCustomerResponse2);
 
-        generateTokenResponse1 = customerService.generateToken(registerCustomerResponse1.id(), 5);
-        GenerateTokenResponse generateTokenResponse2 = customerService.generateToken(registerCustomerResponse2.id(), 5);
+        firstCustomerTokens = customerService.generateToken(registerCustomerResponse1.id(), 5);
+        GenerateTokenResponse secondCustomerTokens = customerService.generateToken(registerCustomerResponse2.id(), 5);
 
-        assertNotNull(generateTokenResponse1);
+
+        assertNotNull(firstCustomerTokens);
         // First payment
-        StartPaymentRequest request = new StartPaymentRequest(generateTokenResponse2.tokens().getFirst(), 100);
-        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
+
+        StartPaymentRequest request1 = new StartPaymentRequest(firstCustomerTokens.tokens().removeFirst(), 100);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request1));
 
         // Second payment
-        request = new StartPaymentRequest(generateTokenResponse2.tokens().get(1), 200);
-        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
+        StartPaymentRequest request2 = new StartPaymentRequest(firstCustomerTokens.tokens().removeFirst(), 200);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request2));
 
         // Third payment
-        request = new StartPaymentRequest(generateTokenResponse2.tokens().getFirst(), 300);
-        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
+        StartPaymentRequest request3 = new StartPaymentRequest(secondCustomerTokens.tokens().removeFirst(), 300);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request3));
 
         // Fourth payment
-        request = new StartPaymentRequest(generateTokenResponse2.tokens().get(1), 400);
-        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
+        StartPaymentRequest request4 = new StartPaymentRequest(secondCustomerTokens.tokens().removeFirst(), 400);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request4));
     }
 
     @When("the reporting service is called to generate a report")
@@ -122,14 +125,44 @@ public class ReportSteps {
     }
 
     @Given("that multiple payments are made successfully in the system by a specific customer")
-    public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystemByASpecificCustomer() {
+    public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystemByASpecificCustomer() throws Exception {
+        // Customer registration
+        User customer1 = new User();
+        customer1.setCprNumber("1523678940");
+        customer1.setFirstName("Tomass");
+        customer1.setLastName("Durneks");
+        String customerBankAccount1 = bankService.createAccountWithBalance(customer1, BigDecimal.valueOf(10000));
+        Users.bankAccounts.add(customerBankAccount1);
+
+        registerCustomerResponse1 = customerService.registerCustomer(new RegisterCustomerRequest(customer1.getFirstName(), customer1.getLastName(), customer1.getCprNumber(), customerBankAccount1));
+        Users.dtuPayAccounts.add(registerCustomerResponse1.id());
+
+
+        // Merchant registration
+        User merchant = new User();
+        merchant.setCprNumber("1245893578");
+        merchant.setFirstName("Sachins");
+        merchant.setLastName("Barals");
+        String merchantBankAccount = bankService.createAccountWithBalance(merchant, BigDecimal.valueOf(10000));
+        Users.bankAccounts.add(merchantBankAccount);
+        registerMerchantResponse = merchantService.registerMerchant(new RegisterCustomerRequest(merchant.getFirstName(), merchant.getLastName(), merchant.getCprNumber(), merchantBankAccount));
+        Users.dtuPayAccounts.add(registerMerchantResponse.id());
+
+        assertNotNull(registerCustomerResponse1);
+        assertNotNull(registerMerchantResponse);
+
+        firstCustomerTokens = customerService.generateToken(registerCustomerResponse1.id(), 5);
+
+        assertNotNull(firstCustomerTokens);
         // First payment
-        StartPaymentRequest request = new StartPaymentRequest(generateTokenResponse1.tokens().getFirst(), 15.5);
-        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
+
+        StartPaymentRequest request1 = new StartPaymentRequest(firstCustomerTokens.tokens().removeFirst(), 100);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request1));
 
         // Second payment
-        request = new StartPaymentRequest(generateTokenResponse1.tokens().get(1), 122.33);
-        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
+        StartPaymentRequest request2 = new StartPaymentRequest(firstCustomerTokens.tokens().removeFirst(), 200);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request2));
+
     }
 
     @When("the reporting service is called to generate a report for the customer")
@@ -141,7 +174,7 @@ public class ReportSteps {
             retrieveReportsException = e;
         }
 
-        assertNotNull(retrieveReportsException);
+        assertNull(retrieveReportsException);
     }
 
     @And("there should not be any reports for other customers")
@@ -151,19 +184,28 @@ public class ReportSteps {
         }
     }
 
-    @Given("that multiple payments are made successfully in the system to a specific merchant")
-    public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystemToASpecificMerchant() {
-    }
-
     @When("the reporting service is called to generate a report for the merchant")
     public void theReportingServiceIsCalledToGenerateAReportForTheMerchant() {
+        try {
+            generateReportsResponse = merchantService.retrieveMerchantReports(registerMerchantResponse.id());
+            assertNotNull(generateReportsResponse);
+        } catch (Exception e) {
+            retrieveReportsException = e;
+        }
+        assertNull(retrieveReportsException);
     }
 
     @And("there should not be any reports for other merchants")
     public void thereShouldNotBeAnyReportsForOtherMerchants() {
+        for (ReportData payment : generateReportsResponse.payments()) {
+            assertEquals(payment.merchantId(), registerMerchantResponse.id());
+        }
     }
 
     @And("the reports must not contain any information about the customers")
     public void theReportsMustNotContainAnyInformationAboutTheCustomers() {
+        for (ReportData payment : generateReportsResponse.payments()) {
+            assertNull(payment.customerId());
+        }
     }
 }

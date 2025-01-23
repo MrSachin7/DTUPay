@@ -28,7 +28,7 @@ public class PaymentRequestedProcessor {
             System.out.println("ValidateTokenCompleted event sent with success: " + event.getCorrelationId());
             return new ValidateTokenCompleted(event.getCorrelationId(), customerId, null);
         } catch (Exception e){
-            System.out.println("ValidateTokenCompleted event sent with failure: " + event.getCorrelationId());
+            System.out.println("ValidateTokenCompleted event sent with failure: " + event.getCorrelationId() + " with reason: " + e.getMessage());
             return new ValidateTokenCompleted(event.getCorrelationId(), null, e.getMessage());
         }
     }

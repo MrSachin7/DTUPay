@@ -60,7 +60,10 @@ public class CustomerService {
                     throw new Exception("Failed to generate token");
                 }
 
-                return response.readEntity(GenerateTokenResponse.class);
+                GenerateTokenResponse tokenResponse = response.readEntity(GenerateTokenResponse.class);
+                System.out.println("----------------------------------------------------");
+                tokenResponse.tokens().forEach(System.out::println);
+                return tokenResponse;
             }
         }
     }

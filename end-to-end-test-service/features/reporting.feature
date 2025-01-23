@@ -14,7 +14,7 @@ Feature: Reporting service
     And there should not be any reports for other customers
 
   Scenario: Report generation for a specific merchant
-    Given that multiple payments are made successfully in the system to a specific merchant
+    Given that a multiple payments are made successfully in the system
     When the reporting service is called to generate a report for the merchant
     Then the report should be generated successfully
     And the payments must be included in the report

@@ -22,7 +22,10 @@ public class ReportService {
                     throw new Exception("Failed to register customer");
                 }
 
-                return response.readEntity(GenerateReportsResponse.class);
+
+                GenerateReportsResponse response1 = response.readEntity(GenerateReportsResponse.class);
+                response1.payments().forEach(System.out::println);
+                return response1;
             }
         }
     }
