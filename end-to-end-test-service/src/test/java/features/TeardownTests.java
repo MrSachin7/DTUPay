@@ -1,7 +1,6 @@
 package features;
 
 import dtu.ws.fastmoney.BankService;
-import dtu.ws.fastmoney.BankServiceException_Exception;
 import dtu.ws.fastmoney.BankServiceService;
 import io.cucumber.java.After;
 import services.CustomerService;
@@ -12,7 +11,7 @@ public class TeardownTests {
     private final CustomerService customerService = new CustomerService();
 
     @After
-    public void tearDown() throws BankServiceException_Exception {
+    public void tearDown() throws Exception {
 
         System.out.println("Tearing down tests");
 

@@ -23,12 +23,21 @@ public class PaymentProcessor {
     @Incoming("ValidateMerchantCompleted")
     public void processMerchantValidation(JsonObject request) {
         AccountValidationCompleted event = request.mapTo(AccountValidationCompleted.class);
-        System.out.println("MerchantValidationCompleted: " + event.getCorrelationId());
+        String correlationId = event.getCorrelationId();
+        System.out.println("ValidateMerchantCompleted event received: " + correlationId);
 
-        paymentContexts.compute(event.getCorrelationId(), (id, context) -> {
+        paymentContexts.compute(correlationId, (id, context) -> {
             if (context == null) {
                 context = new PaymentContext();
             }
+
+            if (!event.wasSuccessful()) {
+                // Immediately emit failure if merchant validation fails
+                System.out.println("Merchant validation failed: " + event.getError());
+                handlePaymentError(correlationId, new RuntimeException(event.getError()));
+                return context;
+            }
+
             context.merchantAccount = event.getBankAccountNumber();
             tryProcessPayment(id, context);
             return context;
@@ -38,13 +47,23 @@ public class PaymentProcessor {
     @Incoming("ValidateCustomerCompleted")
     public void processCustomerValidation(JsonObject request) {
         AccountValidationCompleted event = request.mapTo(AccountValidationCompleted.class);
-        paymentContexts.compute(event.getCorrelationId(), (id, context) -> {
+        String correlationId = event.getCorrelationId();
+        System.out.println("ValidateCustomerCompleted event received: " + correlationId);
+
+        paymentContexts.compute(correlationId, (id, context) -> {
             if (context == null) {
                 context = new PaymentContext();
             }
+
+            if (!event.wasSuccessful()) {
+                // Immediately emit failure if customer validation fails
+                handlePaymentError(correlationId, new RuntimeException(event.getError()));
+                return context;
+            }
+
             context.customerAccount = event.getBankAccountNumber();
             context.customerId = event.getUserId();
-            tryProcessPayment(id, context);
+            tryProcessPayment(correlationId, context);
             return context;
         });
     }
@@ -52,26 +71,26 @@ public class PaymentProcessor {
     @Incoming("PaymentRequested")
     public void processPaymentRequest(JsonObject request) {
         PaymentRequested event = request.mapTo(PaymentRequested.class);
-        System.out.println("PaymentRequested: " + event.getCorrelationId());
+        String correlationId = event.getCorrelationId();
+        System.out.println("PaymentRequested event received: " + correlationId);
 
-        paymentContexts.compute(event.getCorrelationId(), (id, context) -> {
+        paymentContexts.compute(correlationId, (id, context) -> {
             if (context == null) {
                 context = new PaymentContext();
             }
             context.amount = event.getAmount();
             context.startTime = System.currentTimeMillis();
             context.merchantId = event.getMerchantId();
+            context.token = event.getToken();
 
-            // Schedule timeout check
             scheduleTimeout(id);
-
             tryProcessPayment(id, context);
             return context;
         });
     }
 
     private void scheduleTimeout(String correlationId) {
-        CompletableFuture.delayedExecutor(30, TimeUnit.SECONDS).execute(() -> {
+        CompletableFuture.delayedExecutor(10, TimeUnit.SECONDS).execute(() -> {
             PaymentContext context = paymentContexts.get(correlationId);
             if (context != null && !context.isComplete) {
                 handlePaymentError(correlationId, new TimeoutException("Payment processing timed out"));
@@ -94,6 +113,7 @@ public class PaymentProcessor {
 
                 context.isComplete = true;
                 PaymentContext removed = paymentContexts.remove(correlationId);
+                System.out.println("PaymentCompleted event sent with success: " + correlationId);
                 emitPaymentCompleted(correlationId, paymentId, null, removed.token, removed.amount, removed.merchantId, removed.customerId);
             } catch (Exception e) {
                 handlePaymentError(correlationId, e);
@@ -105,7 +125,9 @@ public class PaymentProcessor {
         PaymentContext context = paymentContexts.remove(correlationId);
         if (context != null && !context.isComplete) {
             context.isComplete = true;
-            emitPaymentCompleted(correlationId, null, error.getMessage(),context.token, context.amount, context.merchantId, context.customerId);
+            System.out.println("PaymentCompleted event sent with error: " + correlationId);
+
+            emitPaymentCompleted(correlationId, null, error.getMessage(), context.token, context.amount, context.merchantId, context.customerId);
         }
     }
 
@@ -123,6 +145,7 @@ public class PaymentProcessor {
         String token;
         String merchantId;
         String customerId;
+
         boolean isReadyForProcessing() {
             return customerAccount != null &&
                     merchantAccount != null &&

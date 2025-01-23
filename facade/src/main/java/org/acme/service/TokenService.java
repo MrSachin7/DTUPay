@@ -28,36 +28,36 @@ public class TokenService {
 
 
     public GenerateTokenResponse generateToken(String username, int amount) {
-       GenerateTokenRequested event = new GenerateTokenRequested(UUID.randomUUID().toString(),
-               username, amount);
+        GenerateTokenRequested event = new GenerateTokenRequested(UUID.randomUUID().toString(),
+                username, amount);
 
-       CompletableFuture<List<String>> futureResponse = new CompletableFuture<>();
-       coRelations.put(event.getCoRelationId(), futureResponse);
+        CompletableFuture<List<String>> futureResponse = new CompletableFuture<>();
+        coRelations.put(event.getCoRelationId(), futureResponse);
 
-       try{
-              System.out.println("Sending request to generate token");
-              tokenRequestEmitter.send(event);
+        try {
+            System.out.println("GenerateTokenRequested event fired: " + event.getCoRelationId());
+            tokenRequestEmitter.send(event);
 
-              List<String> tokens = futureResponse.get(30, TimeUnit.SECONDS);
-              return new GenerateTokenResponse(tokens);
-         } catch (Exception e) {
-              coRelations.remove(event.getCoRelationId());
-              throw new RuntimeException(e.getMessage());
-       }
+            List<String> tokens = futureResponse.get(30, TimeUnit.SECONDS);
+            System.out.println("Tokens generated: " + tokens.size());
+            return new GenerateTokenResponse(tokens);
+        } catch (Exception e) {
+            coRelations.remove(event.getCoRelationId());
+            System.out.println("Failed to generate token: " + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
+
     @Incoming("GenerateTokenCompleted")
-    public void process(JsonObject response){
+    public void process(JsonObject response) {
         GenerateTokenCompleted event = response.mapTo(GenerateTokenCompleted.class);
-        System.out.println("Received response for correlation id: " + event.getCoRelationId());
-        System.out.println("Number of generated tokens: " + event.getTokens().size());
+        System.out.println("GenerateTokenCompleted event received: " + event.getCoRelationId());
         CompletableFuture<List<String>> future = coRelations.remove(event.getCoRelationId());
 
         if (future == null) {
-            System.out.println("No future found for correlation id: " + event.getCoRelationId());
             return;
-        };
-
-        if (event.wasSuccessful()){
+        }
+        if (event.wasSuccessful()) {
             future.complete(event.getTokens());
             return;
         }

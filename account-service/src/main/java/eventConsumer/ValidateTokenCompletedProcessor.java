@@ -27,7 +27,12 @@ public class ValidateTokenCompletedProcessor {
     public void process(JsonObject request) {
         ValidateTokenCompleted event = request.mapTo(ValidateTokenCompleted.class);
         if (!event.wasSuccessful()) {
-            System.out.println("Aborting since the event was unsuccessful");
+            System.out.println("AccountValidationCompleted event sent with failure: " + event.getCorrelationId());
+            AccountValidationCompleted eventToFire = new AccountValidationCompleted(event.getCorrelationId(),
+                    event.getCustomerId(),
+                    null,
+                    event.getError());
+            accountValidationCompletedEmitter.send(eventToFire);
             return;
         }
 
@@ -45,6 +50,7 @@ public class ValidateTokenCompletedProcessor {
                     event.getCustomerId(),
                     null,
                     e.getMessage());
+            accountValidationCompletedEmitter.send(eventToFire);
         }
 
     }

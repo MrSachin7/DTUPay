@@ -39,17 +39,19 @@ public class RegisterCustomerService {
 
         try {
             // Send the request
-            System.out.println("Sending request to register customer");
+            System.out.println("RegisterCustomerRequested event fired " + event.getCoRelationId());
             customerRequestEmitter.send(event);
 
             // Wait for the response with a timeout
             // Wait for 30 secs at max
             String customerId = responseFuture.get(30, TimeUnit.SECONDS);
+            System.out.println("Returning registered customer " + customerId);
             return new RegisterCustomerResponse(customerId);
 
         } catch (Exception e) {
             // Clean up the map entry in case of failure
             coRelations.remove(event.getCoRelationId());
+            System.out.println("Failed to register customer: " + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -58,16 +60,14 @@ public class RegisterCustomerService {
     public void process(JsonObject response) {
         RegisterCustomerCompleted event = response.mapTo(RegisterCustomerCompleted.class);
 
-        System.out.println("Received event for customer registration" + event.getCustomerId());
+        System.out.println("RegisterCustomerRequested event received" + event.getCustomerId());
         CompletableFuture<String> future = coRelations.remove(event.getCoRelationId());  // Remove while getting
 
         if (future == null) {
-            System.out.println("No future found for correlation id: " + event.getCoRelationId());
             return;
         }
 
         if (!event.wasSuccessful()) {
-            System.out.println("Failed to register customer: " + event.getError());
             future.completeExceptionally(new RuntimeException(event.getError()));
         }
         future.complete(event.getCustomerId());

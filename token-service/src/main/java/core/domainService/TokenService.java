@@ -44,4 +44,8 @@ public class TokenService {
 
         return customer.getId().getValue();
     }
+
+    public void unregisterCustomer(String customerId) {
+        repository.remove(CustomerId.from(customerId));
+    }
 }
