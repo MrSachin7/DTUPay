@@ -23,8 +23,8 @@ public class TokenSteps {
             "1234567890",
             "1234567890");
 
-    private  RegisterCustomerResponse registeredCustomer;
-    private  GenerateTokenResponse generateTokenResponse;
+    private RegisterCustomerResponse registeredCustomer;
+    private GenerateTokenResponse generateTokenResponse;
 
     private Exception generateTokenException;
 
@@ -80,12 +80,12 @@ public class TokenSteps {
         assertNotNull(generateTokenException);
     }
 
-
-    @And("the customer already has at least one remaining token in the system")
-    public void theCustomerAlreadyHasAtLeastOneRemainingTokenInTheSystem() throws Exception {
-        GenerateTokenResponse tokenResponse = customerService.generateToken(registeredCustomer.id(), 1);
+    @And("the customer already has more than one remaining token in the system")
+    public void theCustomerAlreadyHasMoreThanOneRemainingTokenInTheSystem() throws Exception {
+        GenerateTokenResponse tokenResponse = customerService.generateToken(registeredCustomer.id(), 2);
         assertNotNull(tokenResponse);
-        assertEquals(1, tokenResponse.tokens().size());
+        assertEquals(2, tokenResponse.tokens().size());
+
     }
 
 
@@ -99,11 +99,15 @@ public class TokenSteps {
     @And("the customer should receive {int} tokens")
     public void theCustomerShouldReceiveTokens(int amount) {
         assertNotNull(generateTokenResponse);
-        assertEquals(amount, generateTokenResponse.tokens().size());
+        int actual = generateTokenResponse.tokens().size();
+        System.out.println(actual);
+        assertEquals(amount, actual);
     }
 
     @And("the customer should not receive any tokens")
     public void theCustomerShouldNotReceiveAnyTokens() {
         assertNull(generateTokenResponse);
     }
+
+
 }

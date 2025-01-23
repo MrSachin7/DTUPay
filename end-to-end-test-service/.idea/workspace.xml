@@ -5,35 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a418a46-eb20-4e73-9a29-4db574056ef9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/register.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/features/tokens.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/features/RegisterSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/features/TokenSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/UnregisterCustomerProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../token-service/src/main/java/events/UnregisterCustomerCompleted.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/RegisterCustomerRequestProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/RegisterCustomerRequestProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/UnRegisterCustomerRequestProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/UnRegisterCustomerRequestProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/ValidateTokenCompletedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-service/src/main/java/eventConsumer/ValidateTokenCompletedProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-service/src/main/java/events/UnregisterCustomerCompleted.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-service/src/main/java/events/UnregisterCustomerCompleted.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../account-service/src/main/java/persistence/AccountRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../account-service/src/main/java/persistence/AccountRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/payments.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/payments.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/features/PaymentSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/PaymentSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/features/TeardownTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/TeardownTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterCustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterCustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/UnregisterCustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/UnregisterCustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../payment-service/src/main/java/eventConsumer/PaymentProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../payment-service/src/main/java/eventConsumer/PaymentProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/common/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/common/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domainService/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domainService/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/GenerateTokenRequestProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/GenerateTokenRequestProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/persistence/CustomerRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/persistence/CustomerRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/tokens.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/tokens.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/features/TokenSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/TokenSteps.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,16 +38,23 @@
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "Cucumber Java.Feature: payments.executor": "Run",
     "Cucumber Java.Feature: register.executor": "Run",
+    "Cucumber Java.Feature: tokens.executor": "Run",
     "Cucumber Java.Scenario: Successful payment.executor": "Run",
     "Cucumber Java.Scenario: Successful registration.executor": "Run",
+    "Cucumber Java.Scenario: Successful token generation for the first time when generating 5 tokens.executor": "Run",
+    "Cucumber Java.Scenario: Successful token generation not for the first time when the user only one token left.executor": "Run",
     "Cucumber Java.Scenario: Unsuccessful payment because merchant is not registered with DTU Pay.executor": "Run",
     "Cucumber Java.Scenario: Unsuccessful payment due to invalid token.executor": "Run",
+    "Cucumber Java.Scenario: Unsuccessful registration due to invalid CPR (not 10 digits).executor": "Run",
+    "Cucumber Java.Scenario: Unsuccessful token generation for the first time when generating more than 5 tokens.executor": "Run",
+    "Cucumber Java.Scenario: Unsuccessful token generation when the customer already has a token.executor": "Run",
+    "Cucumber Java.Scenario: Unsuccessful token generation when the customer does not exist in the system.executor": "Run",
     "JUnit.CucumberTest.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "Quarkus.Test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "sachin-fixing-things",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/nepal/OneDrive/Desktop/DTUPay/end-to-end-test-service/src/main/java",
     "node.js.detected.package.eslint": "true",
@@ -89,15 +70,15 @@
       <recent name="C:\Users\nepal\OneDrive\Desktop\DTUPay\end-to-end-test-service\src\main\java" />
     </key>
   </component>
-  <component name="RunManager" selected="Cucumber Java.Feature: payments">
-    <configuration name="Feature: payments" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CucumberTest">
+    <configuration name="Feature: tokens" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/payments.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
       <option name="GLUE" value="features" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="Test" />
       <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
-      <option name="SUGGESTED_NAME" value="Feature: payments" />
+      <option name="SUGGESTED_NAME" value="Feature: tokens" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -109,15 +90,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Scenario: Successful payment" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+    <configuration name="Scenario: Successful token generation not for the first time when the user only one token left" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/payments.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
       <option name="GLUE" value="features" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="Test" />
-      <option name="NAME_FILTER" value="^Successful payment$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Successful payment$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Successful payment" />
+      <option name="NAME_FILTER" value="^Successful token generation not for the first time when the user only one token left$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Successful token generation not for the first time when the user only one token left$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Successful token generation not for the first time when the user only one token left" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -129,15 +110,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Scenario: Unsuccessful payment because merchant is not registered with DTU Pay" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+    <configuration name="Scenario: Unsuccessful token generation when the customer already has a token" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/payments.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
       <option name="GLUE" value="features" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="Test" />
-      <option name="NAME_FILTER" value="^Unsuccessful payment because merchant is not registered with DTU Pay$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Unsuccessful payment because merchant is not registered with DTU Pay$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Unsuccessful payment because merchant is not registered with DTU Pay" />
+      <option name="NAME_FILTER" value="^Unsuccessful token generation when the customer already has a token$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Unsuccessful token generation when the customer already has a token$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Unsuccessful token generation when the customer already has a token" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -149,15 +130,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Scenario: Unsuccessful payment due to invalid token" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+    <configuration name="Scenario: Unsuccessful token generation when the customer does not exist in the system" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/payments.feature" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
       <option name="GLUE" value="features" />
       <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
       <module name="Test" />
-      <option name="NAME_FILTER" value="^Unsuccessful payment due to invalid token$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Unsuccessful payment due to invalid token$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Unsuccessful payment due to invalid token" />
+      <option name="NAME_FILTER" value="^Unsuccessful token generation when the customer does not exist in the system$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Unsuccessful token generation when the customer does not exist in the system$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Unsuccessful token generation when the customer does not exist in the system" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -236,11 +217,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cucumber Java.Feature: payments" />
-        <item itemvalue="Cucumber Java.Scenario: Unsuccessful payment due to invalid token" />
-        <item itemvalue="Cucumber Java.Scenario: Unsuccessful payment because merchant is not registered with DTU Pay" />
-        <item itemvalue="Cucumber Java.Scenario: Successful payment" />
         <item itemvalue="JUnit.CucumberTest" />
+        <item itemvalue="Cucumber Java.Feature: tokens" />
+        <item itemvalue="Cucumber Java.Scenario: Successful token generation not for the first time when the user only one token left" />
+        <item itemvalue="Cucumber Java.Scenario: Unsuccessful token generation when the customer does not exist in the system" />
+        <item itemvalue="Cucumber Java.Scenario: Unsuccessful token generation when the customer already has a token" />
       </list>
     </recent_temporary>
   </component>
@@ -264,7 +245,7 @@
       <workItem from="1737485994777" duration="598000" />
       <workItem from="1737566426617" duration="241000" />
       <workItem from="1737566678288" duration="27000" />
-      <workItem from="1737566717602" duration="13159000" />
+      <workItem from="1737566717602" duration="13785000" />
     </task>
     <servers />
   </component>
