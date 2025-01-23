@@ -56,12 +56,10 @@ public class TokenSteps {
         try {
             generateTokenResponse = customerService.generateToken(registeredCustomer.id(), amount);
             assertNotNull(generateTokenResponse);
-
         } catch (Exception e) {
-            // This migh fail
+            // This might fail
             generateTokenException = e;
         }
-
     }
 
     @Then("the token should be generated successfully")

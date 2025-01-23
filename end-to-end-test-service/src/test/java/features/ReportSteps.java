@@ -26,6 +26,9 @@ public class ReportSteps {
 
     private RegisterCustomerResponse registerCustomerResponse1, registerMerchantResponse, registerCustomerResponse2;
     private GenerateReportsResponse generateReportsResponse;
+    private GenerateTokenResponse generateTokenResponse1;
+
+    private Exception retrieveReportsException;
 
     private BankService bankService;
 
@@ -77,16 +80,16 @@ public class ReportSteps {
         assertNotNull(registerMerchantResponse);
         assertNotNull(registerCustomerResponse2);
 
-        GenerateTokenResponse generateTokenResponse1 = customerService.generateToken(registerCustomerResponse1.id(), 5);
-        GenerateTokenResponse generateTokenResponse2 = customerService.generateToken(registerCustomerResponse1.id(), 5);
+        generateTokenResponse1 = customerService.generateToken(registerCustomerResponse1.id(), 5);
+        GenerateTokenResponse generateTokenResponse2 = customerService.generateToken(registerCustomerResponse2.id(), 5);
 
         assertNotNull(generateTokenResponse1);
         // First payment
-        StartPaymentRequest request = new StartPaymentRequest(generateTokenResponse1.tokens().getFirst(), 100);
+        StartPaymentRequest request = new StartPaymentRequest(generateTokenResponse2.tokens().getFirst(), 100);
         paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
 
         // Second payment
-        request = new StartPaymentRequest(generateTokenResponse1.tokens().get(1), 200);
+        request = new StartPaymentRequest(generateTokenResponse2.tokens().get(1), 200);
         paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
 
         // Third payment
@@ -100,7 +103,7 @@ public class ReportSteps {
 
     @When("the reporting service is called to generate a report")
     public void theReportingServiceIsCalledToGenerateAReport() throws Exception {
-        generateReportsResponse= reportService.generateReports();
+        generateReportsResponse = reportService.generateReports();
     }
 
     @Then("the report should be generated successfully")
@@ -118,19 +121,37 @@ public class ReportSteps {
         }
     }
 
-    @Given("that a multiple payments are made successfully in the system by a specific customer")
+    @Given("that multiple payments are made successfully in the system by a specific customer")
     public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystemByASpecificCustomer() {
+        // First payment
+        StartPaymentRequest request = new StartPaymentRequest(generateTokenResponse1.tokens().getFirst(), 15.5);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
+
+        // Second payment
+        request = new StartPaymentRequest(generateTokenResponse1.tokens().get(1), 122.33);
+        paymentsMade.add(merchantService.pay(registerMerchantResponse.id(), request));
     }
 
     @When("the reporting service is called to generate a report for the customer")
     public void theReportingServiceIsCalledToGenerateAReportForTheCustomer() {
+        try {
+            generateReportsResponse = customerService.retrieveCustomerReports(registerCustomerResponse1.id());
+            assertNotNull(generateReportsResponse);
+        } catch (Exception e) {
+            retrieveReportsException = e;
+        }
+
+        assertNotNull(retrieveReportsException);
     }
 
     @And("there should not be any reports for other customers")
     public void thereShouldNotBeAnyReportsForOtherCustomers() {
+        for (ReportData payment : generateReportsResponse.payments()) {
+            assertEquals(payment.customerId(), registerCustomerResponse1.id());
+        }
     }
 
-    @Given("that a multiple payments are made successfully in the system to a specific merchant")
+    @Given("that multiple payments are made successfully in the system to a specific merchant")
     public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystemToASpecificMerchant() {
     }
 

@@ -1,8 +1,6 @@
 package services;
 
-import dto.RegisterCustomerRequest;
-import dto.RegisterCustomerResponse;
-import dto.StartPaymentRequest;
+import dto.*;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
@@ -49,6 +47,22 @@ public class MerchantService {
                 return responseString;
             }
         }
+    }
 
+    public GenerateReportsResponse retrieveMerchantReports(String merchantId) throws Exception {
+        try(Client client = ClientBuilder.newClient()){
+            WebTarget target = client.target(BASE_URL).path(merchantId + "/reports");
+
+            try(Response response = target.request().get()){
+                int statusCode = response.getStatus();
+                System.out.println("Response status code: " + statusCode);
+
+                if (statusCode < 200 || statusCode > 300) {
+                    throw new Exception("Failed to register customer");
+                }
+
+                return response.readEntity(GenerateReportsResponse.class);
+            }
+        }
     }
 }

@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="1a418a46-eb20-4e73-9a29-4db574056ef9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/tokens.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/tokens.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/reporting.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/reporting.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/MerchantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MerchantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/features/TokenSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/TokenSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/GenerateReportsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/GenerateReportsResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/CustomerId.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/CustomerId.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,53 +29,45 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2rFfrCWDA2wYTA53IHzNrrZyLbr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "Cucumber Java.Feature: payments.executor": "Run",
-    "Cucumber Java.Feature: register.executor": "Run",
-    "Cucumber Java.Feature: tokens.executor": "Run",
-    "Cucumber Java.Scenario: Successful payment.executor": "Run",
-    "Cucumber Java.Scenario: Successful registration.executor": "Run",
-    "Cucumber Java.Scenario: Successful token generation for the first time when generating 5 tokens.executor": "Run",
-    "Cucumber Java.Scenario: Successful token generation not for the first time when the user only one token left.executor": "Run",
-    "Cucumber Java.Scenario: Unsuccessful payment because merchant is not registered with DTU Pay.executor": "Run",
-    "Cucumber Java.Scenario: Unsuccessful payment due to invalid token.executor": "Run",
-    "Cucumber Java.Scenario: Unsuccessful registration due to invalid CPR (not 10 digits).executor": "Run",
-    "Cucumber Java.Scenario: Unsuccessful token generation for the first time when generating more than 5 tokens.executor": "Run",
-    "Cucumber Java.Scenario: Unsuccessful token generation when the customer already has a token.executor": "Run",
-    "Cucumber Java.Scenario: Unsuccessful token generation when the customer does not exist in the system.executor": "Run",
-    "JUnit.CucumberTest.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Quarkus.Test.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "sachin-fixing-things",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/nepal/OneDrive/Desktop/DTUPay/end-to-end-test-service/src/main/java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nepal\OneDrive\Desktop\DTUPay\end-to-end-test-service\src\main\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CucumberTest">
+  <component name="RunManager" selected="Cucumber Java.Feature: reporting">
+    <configuration name="Feature: reporting" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/reporting.feature" />
+      <option name="GLUE" value="features" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="end-to-end-test-service" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
+      <option name="SUGGESTED_NAME" value="Feature: reporting" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Feature: tokens" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
@@ -110,42 +107,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Scenario: Unsuccessful token generation when the customer already has a token" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
-      <option name="GLUE" value="features" />
-      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
-      <module name="Test" />
-      <option name="NAME_FILTER" value="^Unsuccessful token generation when the customer already has a token$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Unsuccessful token generation when the customer already has a token$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Unsuccessful token generation when the customer already has a token" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+    <configuration name="CucumberTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="end-to-end-test-service" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="PATTERN" value="features.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Scenario: Unsuccessful token generation when the customer does not exist in the system" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/tokens.feature" />
-      <option name="GLUE" value="features" />
-      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
-      <module name="Test" />
-      <option name="NAME_FILTER" value="^Unsuccessful token generation when the customer does not exist in the system$" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Unsuccessful token generation when the customer does not exist in the system$&quot;" />
-      <option name="SUGGESTED_NAME" value="Scenario: Unsuccessful token generation when the customer does not exist in the system" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="io.cucumber.core.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="features" />
+      <option name="MAIN_CLASS_NAME" value="features.CucumberTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -161,19 +133,6 @@
       <option name="PACKAGE_NAME" value="features" />
       <option name="MAIN_CLASS_NAME" value="features.CucumberTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="end-to-end-test-service" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="end-to-end-test-service" />
-      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -217,11 +176,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Cucumber Java.Feature: reporting" />
+        <item itemvalue="JUnit.CucumberTest (1)" />
         <item itemvalue="JUnit.CucumberTest" />
         <item itemvalue="Cucumber Java.Feature: tokens" />
         <item itemvalue="Cucumber Java.Scenario: Successful token generation not for the first time when the user only one token left" />
-        <item itemvalue="Cucumber Java.Scenario: Unsuccessful token generation when the customer does not exist in the system" />
-        <item itemvalue="Cucumber Java.Scenario: Unsuccessful token generation when the customer already has a token" />
       </list>
     </recent_temporary>
   </component>

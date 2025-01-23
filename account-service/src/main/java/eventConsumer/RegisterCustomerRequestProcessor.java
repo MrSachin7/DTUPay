@@ -6,9 +6,6 @@ import events.RegisterCustomerCompleted;
 import events.RegisterCustomerRequested;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
@@ -35,8 +32,7 @@ public class RegisterCustomerRequestProcessor {
 
         } catch (Exception e) {
             System.out.println("RegisterCustomerCompleted event sent with failure "+ event.getCoRelationId());
-            return new RegisterCustomerCompleted(event.getCoRelationId(),id, null);
-
+            return new RegisterCustomerCompleted(event.getCoRelationId(), null, e.getMessage());
         }
     }
 }

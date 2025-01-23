@@ -9,7 +9,7 @@ public class CustomerId extends Id {
     private CustomerId() {
     }
 
-    public static CustomerId from(String id){
+    public static CustomerId from(String id) {
         CustomerId customerId = new CustomerId();
         customerId.setId(UUID.fromString(id));
         return customerId;

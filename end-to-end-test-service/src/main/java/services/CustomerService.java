@@ -1,5 +1,6 @@
 package services;
 
+import dto.GenerateReportsResponse;
 import dto.GenerateTokenResponse;
 import dto.RegisterCustomerRequest;
 import dto.RegisterCustomerResponse;
@@ -60,6 +61,23 @@ public class CustomerService {
                 }
 
                 return response.readEntity(GenerateTokenResponse.class);
+            }
+        }
+    }
+
+    public GenerateReportsResponse retrieveCustomerReports(String customerId) throws Exception {
+        try(Client client = ClientBuilder.newClient()){
+            WebTarget target = client.target(BASE_URL).path(customerId + "/reports");
+
+            try(Response response = target.request().get()){
+                int statusCode = response.getStatus();
+                System.out.println("Response status code: " + statusCode);
+
+                if (statusCode < 200 || statusCode > 300) {
+                    throw new Exception("Failed to register customer");
+                }
+
+                return response.readEntity(GenerateReportsResponse.class);
             }
         }
     }
