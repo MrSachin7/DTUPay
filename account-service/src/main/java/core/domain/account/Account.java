@@ -19,7 +19,19 @@ public class Account extends Aggregate<AccountId> {
         return account;
     }
 
+    public CprNumber getCprNumber() {
+        return cprNumber;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
     public BankAccountNumber getBankAccountNumber() {
         return bankAccountNumber;
+    }
+
+    public AccountId getId() {
+        return id;
     }
 }

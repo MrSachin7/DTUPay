@@ -56,4 +56,6 @@ public class AccountValidationCompleted {
     public void setBankAccountNumber(String bankAccountNumber) {
         this.bankAccountNumber = bankAccountNumber;
     }
+
+
 }

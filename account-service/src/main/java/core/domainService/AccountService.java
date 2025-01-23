@@ -20,7 +20,7 @@ public class AccountService {
         Account account = Account.newAccount(cpr, name, bankAccountNumber);
 
         accountRepository.add(account);
-        return account.getId().getValue();
+        return account.getId().toString();
 
     }
 

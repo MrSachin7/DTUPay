@@ -30,11 +30,13 @@ public class RegisterCustomerRequestProcessor {
         try {
             String id = accountService.registerAccount(event.getFirstname(), event.getLastname(), event.getCprNumber(), event.getAccountNumber());
             System.out.println("RegisterCustomerCompleted event sent with success "+ event.getCoRelationId());
+
             return new RegisterCustomerCompleted(event.getCoRelationId(),id, null);
 
         } catch (Exception e) {
             System.out.println("RegisterCustomerCompleted event sent with failure "+ event.getCoRelationId());
-            return new RegisterCustomerCompleted(event.getCoRelationId(),null, e.getMessage());
+            return new RegisterCustomerCompleted(event.getCoRelationId(),id, null);
+
         }
     }
 }
