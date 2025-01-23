@@ -42,14 +42,12 @@ public class GenerateTokenSteps {
 
     @Given("a customer exits in the system")
     public void a_customer_exits_in_the_system() {
-
         // Mocking that the customer exists in the system
         when(repository.find(existingCustomer.getId())).thenReturn(existingCustomer);
     }
 
     @Given("a customer does not exits in the system")
     public void aCustomerDoesNotExitsInTheSystem() {
-
         // Mocking that the customer does not exist in the system
         when(repository.find(existingCustomer.getId())).thenReturn(null);
     }

@@ -20,11 +20,13 @@ public class TokenService {
         Customer customer = repository.find(CustomerId.from(customerId));
 
         if(customer == null){
+            throw new NotFoundException("Customer not found");
+        } else {
             customer = Customer.from(CustomerId.from(customerId));
             repository.add(customer);
+            customer.generateTokens(amount);
+            return customer.getTokens();
         }
-        customer.generateTokens(amount);
-        return customer.getTokens();
     }
 
 
