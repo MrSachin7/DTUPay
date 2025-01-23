@@ -9,6 +9,7 @@ import java.util.List;
 public class ReportsRetrieved {
     private String correlationId;
     private List<PaymentData> paymentData;
+    private String error;
 
     public ReportsRetrieved() {
     }
@@ -32,6 +33,18 @@ public class ReportsRetrieved {
 
     public List<PaymentData> getPaymentData() {
         return paymentData;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public boolean wasSuccessful() {
+        return error == null;
     }
 
     public static class PaymentData {
