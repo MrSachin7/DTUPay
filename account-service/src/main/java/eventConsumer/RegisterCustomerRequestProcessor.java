@@ -17,6 +17,7 @@ public class RegisterCustomerRequestProcessor {
 
     private final AccountService accountService;
 
+
     public RegisterCustomerRequestProcessor(AccountService accountService) {
         this.accountService = accountService;
     }
@@ -24,17 +25,18 @@ public class RegisterCustomerRequestProcessor {
     @Incoming("RegisterCustomerRequested")
     @Outgoing("RegisterCustomerCompleted")
     public RegisterCustomerCompleted process(JsonObject obj){
-        System.out.println("Processing request to register customer");
         RegisterCustomerRequested event = obj.mapTo(RegisterCustomerRequested.class);
+        System.out.println("RegisterCustomerRequested event received " + event.getCoRelationId());
         try {
             String id = accountService.registerAccount(event.getFirstname(), event.getLastname(), event.getCprNumber(), event.getAccountNumber());
-            System.out.println("Customer registered with id: " + id);
+            System.out.println("RegisterCustomerCompleted event sent with success "+ event.getCoRelationId());
+
             return new RegisterCustomerCompleted(event.getCoRelationId(),id, null);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return new RegisterCustomerCompleted(event.getCoRelationId(),null, e.getMessage());
+            System.out.println("RegisterCustomerCompleted event sent with failure "+ event.getCoRelationId());
+            return new RegisterCustomerCompleted(event.getCoRelationId(),id, null);
+
         }
     }
-
 }

@@ -32,7 +32,6 @@ public class AccountRepositoryImpl implements AccountRepository {
         accounts.put(account.getId(), account);
         System.out.println("Added account with ID: " + account.getId());
     }
-
     @Override
     public void remove(Account account) {
         accounts.remove(account.getId());

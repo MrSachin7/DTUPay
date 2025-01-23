@@ -6,8 +6,7 @@ public class Amount extends ValueObject {
 
     private double value;
 
-    private Amount(){
-
+    private Amount() {
     }
 
     public static Amount from(double value) {

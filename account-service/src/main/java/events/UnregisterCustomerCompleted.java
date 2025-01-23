@@ -8,6 +8,8 @@ public class UnregisterCustomerCompleted implements Serializable {
 
     private String coRelationId;
 
+    private String customerId;
+
     private String error;
 
 
@@ -15,8 +17,10 @@ public class UnregisterCustomerCompleted implements Serializable {
     public UnregisterCustomerCompleted() {}
 
     // Parameterized constructor
-    public UnregisterCustomerCompleted(String coRelationId, String error) {
+    public UnregisterCustomerCompleted(String coRelationId,String customerID, String error) {
         this.coRelationId = coRelationId;
+        this.customerId = customerID;
+        this.error = error;
     }
 
     // Getters and Setters
@@ -39,4 +43,14 @@ public class UnregisterCustomerCompleted implements Serializable {
     public boolean wasSuccessful(){
         return error == null;
     }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+
 }

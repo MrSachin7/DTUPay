@@ -48,8 +48,8 @@
 //        assertEquals(5, existingCustomer.getTokens().size());
 //    }
 //
-//    @When("the system recieves the payment completed event with successful payment")
-//    public void theSystemRecievesThePaymentCompletedEventWithSuccessfulPayment() {
+//    @When("the system receives the payment completed event with successful payment")
+//    public void theSystemReceivesThePaymentCompletedEventWithSuccessfulPayment() {
 //        PaymentCompleted event = new PaymentCompleted(coRelationId,
 //                existingCustomer.getId().getValue(),
 //                tokenToUse);
@@ -60,8 +60,8 @@
 //
 //    }
 //
-//    @When("the system recieves the payment completed event with unsuccessful payment")
-//    public void theSystemRecievesThePaymentCompletedEventWithUnsuccessfulPayment() {
+//    @When("the system receives the payment completed event with unsuccessful payment")
+//    public void theSystemReceivesThePaymentCompletedEventWithUnsuccessfulPayment() {
 //        // Payment with error
 //        PaymentCompleted event = new PaymentCompleted(coRelationId,
 //                existingCustomer.getId().getValue(),

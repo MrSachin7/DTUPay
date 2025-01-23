@@ -25,9 +25,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         System.out.println("New list of customers: ");
         customers.forEach((key, value) -> System.out.println("Key: " + key + " Value: " + value));
     }
+
     @Override
-    public void remove(Customer aggregate) {
-        customers.remove(aggregate.getId());
+    public void remove(CustomerId id) {
+        Customer customer = customers.get(id);
+        if (customer == null) {
+            System.out.println("Customer not found");
+            return;
+        }
+        Customer remove = customers.remove(id);
+        System.out.println("Removed customer: " + remove.getId());
     }
 
     @Override

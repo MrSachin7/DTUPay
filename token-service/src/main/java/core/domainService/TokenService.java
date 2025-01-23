@@ -27,7 +27,6 @@ public class TokenService {
         return customer.getTokens();
     }
 
-
     public void removeToken(String customerId, String tokenUsed) {
         Customer customer = repository.find(CustomerId.from(customerId));
         customer.removeToken(tokenUsed);
@@ -36,7 +35,7 @@ public class TokenService {
     public String validateToken(String token) throws NotFoundException {
         Customer customer = repository.findByToken(token);
 
-        if (customer == null){
+        if (customer == null) {
             throw new NotFoundException("Invalid token");
         }
 
@@ -44,5 +43,9 @@ public class TokenService {
         customer.deleteToken(token);
 
         return customer.getId().getValue();
+    }
+
+    public void unregisterCustomer(String customerId) {
+        repository.remove(CustomerId.from(customerId));
     }
 }

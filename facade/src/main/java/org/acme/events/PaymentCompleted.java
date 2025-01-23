@@ -7,9 +7,7 @@ public class PaymentCompleted {
 
     private String correlationId;
     private String error;
-
     private String paymentId;
-
 
     public PaymentCompleted() {
     }

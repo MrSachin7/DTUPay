@@ -6,9 +6,11 @@ public class Payment extends Aggregate<PaymentId> {
     private Amount amount;
     private BankAccountNumber customerAccount;
     private BankAccountNumber merchantAccount;
+    private MerchantId merchantId;
+    private CustomerId customerId;
+    private Token token;
 
-    private Payment(){
-
+    private Payment() {
     }
 
     public static Payment newPayment(){
@@ -39,5 +41,29 @@ public class Payment extends Aggregate<PaymentId> {
 
     public Amount getAmount() {
         return amount;
+    }
+
+    public MerchantId getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(MerchantId merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public CustomerId getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(CustomerId customerId) {
+        this.customerId = customerId;
+    }
+
+    public Token getToken() {
+        return token;
+    }
+
+    public void setToken(Token token) {
+        this.token = token;
     }
 }
