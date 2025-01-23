@@ -16,17 +16,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
-public class RegisterCustomerService {
+public class RegisterService {
 
     private final Emitter<RegisterCustomerRequested> customerRequestEmitter;
 
     private final ConcurrentHashMap<String, CompletableFuture<String>> coRelations = new ConcurrentHashMap<>();
 
-    public RegisterCustomerService(@Channel("RegisterCustomerRequested") Emitter<RegisterCustomerRequested> customerRequestEmitter) {
+    public RegisterService(@Channel("RegisterCustomerRequested") Emitter<RegisterCustomerRequested> customerRequestEmitter) {
         this.customerRequestEmitter = customerRequestEmitter;
     }
 
-    public RegisterCustomerResponse registerCustomer(RegisterCustomerRequest registerCustomerDto) {
+    public RegisterCustomerResponse register(RegisterCustomerRequest registerCustomerDto) {
         // Create and store the future BEFORE sending the request
         RegisterCustomerRequested event = new RegisterCustomerRequested(UUID.randomUUID().toString(),
                 registerCustomerDto.firstname(), registerCustomerDto.lastname(),
