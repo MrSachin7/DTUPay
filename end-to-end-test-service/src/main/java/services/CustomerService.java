@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.Response;
 public class CustomerService {
     private static final String BASE_URL = "http://localhost:8080/customers/";
 
-    public RegisterCustomerResponse registerCustomer(RegisterCustomerRequest request){
+    public RegisterCustomerResponse registerCustomer(RegisterCustomerRequest request) throws Exception {
         try(Client client = ClientBuilder.newClient()){
             WebTarget target = client.target(BASE_URL);
 
@@ -21,16 +21,15 @@ public class CustomerService {
                 System.out.println("Response status code: " + statusCode);
 
                 if (statusCode < 200 || statusCode > 300) {
-                    throw new RuntimeException("Failed to register customer");
+                    throw new Exception("Failed to register customer");
                 }
 
                 return response.readEntity(RegisterCustomerResponse.class);
             }
         }
-
     }
 
-    public void unregisterCustomer(String customerId){
+    public void unregisterCustomer(String customerId) throws Exception {
         try(Client client = ClientBuilder.newClient()){
             WebTarget target = client.target(BASE_URL).path(customerId);
 
@@ -42,13 +41,13 @@ public class CustomerService {
                 System.out.println("Response: " + responseString);
 
                 if (statusCode < 200 || statusCode > 300) {
-                    throw new RuntimeException("Failed to unregister customer");
+                    throw new Exception("Failed to unregister customer");
                 }
             }
         }
     }
 
-    public GenerateTokenResponse generateToken(String customerId, int amount){
+    public GenerateTokenResponse generateToken(String customerId, int amount) throws Exception {
         try(Client client = ClientBuilder.newClient()){
             WebTarget target = client.target(BASE_URL).path(customerId + "/tokens").queryParam("amount", amount);
 
@@ -57,13 +56,11 @@ public class CustomerService {
                 System.out.println("Response status code: " + statusCode);
 
                 if (statusCode < 200 || statusCode > 300) {
-                    throw new RuntimeException("Failed to generate token");
+                    throw new Exception("Failed to generate token");
                 }
 
                 return response.readEntity(GenerateTokenResponse.class);
             }
         }
     }
-
-
 }

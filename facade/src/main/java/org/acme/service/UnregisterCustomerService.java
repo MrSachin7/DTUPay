@@ -34,16 +34,18 @@ public class UnregisterCustomerService {
 
         try {
             // Send the request
-            System.out.println("Sending request to unregister customer");
+            System.out.println("UnregisterCustomerRequested event fired: " + event.getCoRelationId());
             customerRequestEmitter.send(event);
 
             // Wait for the response with a timeout
             // Wait for 30 secs at max
             responseFuture.get(30, TimeUnit.SECONDS);
+            System.out.println("Customer unregistered successfully" + customerId);
 
         } catch (Exception e) {
             // Clean up the map entry in case of failure
             coRelations.remove(event.getCoRelationId());
+            System.out.println("Failed to unregister customer: " + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -51,16 +53,16 @@ public class UnregisterCustomerService {
     @Incoming("UnregisterCustomerCompleted")
     public void process(JsonObject response) {
         UnregisterCustomerCompleted event = response.mapTo(UnregisterCustomerCompleted.class);
+        System.out.println("UnregisterCustomerCompleted event received: " + event.getCoRelationId());
 
         CompletableFuture<Void> future = coRelations.remove(event.getCoRelationId());  // Remove while getting
 
         if (future == null) {
-            System.out.println("No future found for correlation id: " + event.getCoRelationId());
             return;
         }
 
         if (!event.wasSuccessful()) {
-            System.out.println("Failed to register customer: " + event.getError());
+            System.out.println("Failed to unregister customer: " + event.getError());
             future.completeExceptionally(new RuntimeException(event.getError()));
         }
         future.complete(null);

@@ -31,11 +31,11 @@ public class PaymentService {
         coRelations.put(event.getCorrelationId(), responseFuture);
 
         try {
-            System.out.println("Sending request to start payment");
+            System.out.println("PaymentRequest event fired " + event.getCorrelationId());
             paymentRequestedEmitter.send(event);
 
             String paymentId = responseFuture.get();
-            System.out.println("Payment started with id: " + paymentId);
+            System.out.println("Returning paymentId " + paymentId);
             return paymentId;
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
@@ -46,14 +46,16 @@ public class PaymentService {
     @Incoming("PaymentCompleted")
     public void process(JsonObject request){
         PaymentCompleted event = request.mapTo(PaymentCompleted.class);
+        System.out.println("PaymentCompleted event received " + event.getCorrelationId());
         CompletableFuture<String> future = coRelations.remove(event.getCorrelationId());
 
+        if (future == null) return;
+
         if (!event.wasSuccessful()){
-            throw new RuntimeException(event.getError());
+            System.out.println(event.getError());
+            future.completeExceptionally(new RuntimeException(event.getError()));
         }
-        if (future != null){
-            future.complete(event.getPaymentId());
-        }
+        future.complete(event.getPaymentId());
     }
 
 }

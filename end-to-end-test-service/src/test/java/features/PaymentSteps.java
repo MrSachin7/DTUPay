@@ -16,6 +16,7 @@ import services.CustomerService;
 import services.MerchantService;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -64,7 +65,7 @@ public class PaymentSteps {
     }
 
     @And("the customer is registered with Simple DTU Pay using their bank account")
-    public void theCustomerIsRegisteredWithSimpleDTUPayUsingTheirBankAccount() {
+    public void theCustomerIsRegisteredWithSimpleDTUPayUsingTheirBankAccount() throws Exception {
         RegisterCustomerRequest request = new RegisterCustomerRequest(bankCustomer.getFirstName(),
                 bankCustomer.getLastName(),
                 bankCustomer.getCprNumber(),
@@ -73,6 +74,13 @@ public class PaymentSteps {
         registerCustomerResponse = customerService.registerCustomer(request);
         assertNotNull(registerCustomerResponse);
         Users.dtuPayAccounts.add(registerCustomerResponse.id());
+    }
+
+    @And("the customer is not registered with Simple DTU Pay using their bank account")
+    public void theCustomerIsNotRegisteredWithSimpleDTUPayUsingTheirBankAccount() {
+        // The customer is not registered
+        registerCustomerResponse = new RegisterCustomerResponse(UUID.randomUUID().toString());
+        registerCustomerResponse = new RegisterCustomerResponse(UUID.randomUUID().toString());
     }
 
     @And("a merchant with name {string}, last name {string}, and CPR {string}")
@@ -90,8 +98,15 @@ public class PaymentSteps {
         Users.bankAccounts.add(merchantAccountNumber);
     }
 
+    @And("the merchant is not registered with Simple DTU Pay using their bank")
+    public void theMerchantIsNotRegisteredWithSimpleDTUPayUsingTheirBank() {
+        // The merchant is not registered
+        merchantAccountNumber = UUID.randomUUID().toString();
+        registerMerchantResponse = new RegisterCustomerResponse(UUID.randomUUID().toString());
+    }
+
     @And("the merchant is registered with Simple DTU Pay using their bank")
-    public void theMerchantIsRegisteredWithSimpleDTUPayUsingTheirBank() {
+    public void theMerchantIsRegisteredWithSimpleDTUPayUsingTheirBank() throws Exception {
         RegisterCustomerRequest request = new RegisterCustomerRequest(bankMerchant.getFirstName(),
                 bankMerchant.getLastName(),
                 bankMerchant.getCprNumber(),
@@ -104,7 +119,7 @@ public class PaymentSteps {
     }
 
     @And("the customer has generated token")
-    public void theCustomerHasGeneratedToken() {
+    public void theCustomerHasGeneratedToken() throws Exception {
         generateTokenResponse = customerService.generateToken(registerCustomerResponse.id(), 1);
 
         assertNotNull(generateTokenResponse);
@@ -116,14 +131,27 @@ public class PaymentSteps {
     @When("the merchant initiates a payment for {int} kr by the customer with the valid token")
     public void theMerchantInitiatesAPaymentForKrByTheCustomerWithTheValidToken(int amount) {
         StartPaymentRequest request = new StartPaymentRequest(generateTokenResponse.tokens().getFirst(), amount);
-
         wasPaymentSuccessful = merchantService.pay(registerMerchantResponse.id(),request);
+    }
+
+    @When("the merchant initiates a payment for {int} kr by the customer with the invalid token")
+    public void theMerchantInitiatesAPaymentForKrByTheCustomerWithTheInvalidToken(int amount) {
+        // With a random token that doesnt exist
+        StartPaymentRequest request = new StartPaymentRequest(UUID.randomUUID().toString(), amount);
+        wasPaymentSuccessful = merchantService.pay(registerMerchantResponse.id(), request);
 
     }
+
 
     @Then("the payment should be successful")
     public void thePaymentShouldBeSuccessful() {
         assertTrue(wasPaymentSuccessful);
+    }
+
+
+    @Then("the payment should not be successful")
+    public void thePaymentShouldNotBeSuccessful() {
+        assertFalse(wasPaymentSuccessful);
     }
 
     @And("the balance of the customer should be {int} kr")

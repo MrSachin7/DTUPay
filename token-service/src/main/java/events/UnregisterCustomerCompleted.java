@@ -17,7 +17,7 @@ public class UnregisterCustomerCompleted implements Serializable {
     public UnregisterCustomerCompleted() {}
 
     // Parameterized constructor
-    public UnregisterCustomerCompleted(String coRelationId,String customerID, String error) {
+    public UnregisterCustomerCompleted(String coRelationId, String customerID, String error) {
         this.coRelationId = coRelationId;
         this.customerId = customerID;
         this.error = error;

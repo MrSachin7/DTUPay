@@ -24,9 +24,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public void add(Account account) {
         accounts.put(account.getId(), account);
-
     }
-
     @Override
     public void remove(Account account) {
         accounts.remove(account.getId());

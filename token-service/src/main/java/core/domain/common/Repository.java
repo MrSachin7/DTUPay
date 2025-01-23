@@ -4,5 +4,5 @@ package core.domain.common;
 public interface Repository<TAgg extends Aggregate<TId>, TId> {
     TAgg find(TId id);
     void add(TAgg aggregate);
-    void remove(TAgg aggregate);
+    void remove(TId id);
 }
