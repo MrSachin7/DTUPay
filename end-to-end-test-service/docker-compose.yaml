@@ -72,6 +72,8 @@ services:
     build: ../reporting-service
     container_name: reporting-service
     restart: on-failure
+    ports:
+      - "8081:8081"
     environment:
       - RABBITMQ_HOST=rabitt-mqtt
       - RABBITMQ_PORT=5672
