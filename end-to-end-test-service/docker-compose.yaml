@@ -62,11 +62,11 @@ services:
     extra_hosts:
       - "fm-00.compute.dtu.dk:host-gateway"
     environment:
+      - QUARKUS_HTTP_HOST=0.0.0.0
       - RABBITMQ_HOST=rabitt-mqtt
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
-      - WSDL_ENDPOINT=http://host.docker.internal:80/BankService
 
     depends_on:
       rabitt-mqtt:
