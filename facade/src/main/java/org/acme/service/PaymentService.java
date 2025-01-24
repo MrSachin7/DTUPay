@@ -39,7 +39,7 @@ public class PaymentService {
             return paymentId;
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
-            throw new RuntimeException("Failed to start payment", e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
