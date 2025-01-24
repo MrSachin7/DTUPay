@@ -78,7 +78,7 @@ services:
     container_name: payment-service
     restart: on-failure
     extra_hosts:
-      - "fm-00.compute.dtu.dk:host-gateway"
+      - "fm-03.compute.dtu.dk:host-gateway"
     environment:
       - QUARKUS_HTTP_HOST=0.0.0.0
       - RABBITMQ_HOST=rabitt-mqtt
@@ -87,7 +87,7 @@ services:
       - RABBITMQ_PASSWORD=guest
 
     extra_hosts:
-      - "fm-00.compute.dtu.dk:host-gateway"
+      - "fm-03.compute.dtu.dk:host-gateway"
     environment:
       - QUARKUS_HTTP_HOST=0.0.0.0
       - RABBITMQ_HOST=rabitt-mqtt

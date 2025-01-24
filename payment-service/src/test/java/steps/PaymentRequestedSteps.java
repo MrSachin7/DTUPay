@@ -53,7 +53,7 @@ public class PaymentRequestedSteps {
     public void theValidateMerchantIsReceived() {
         validatedMerchant = new AccountValidationCompleted(paymentRequested.getCorrelationId(), paymentRequested.getMerchantId(), UUID.randomUUID().toString(), null);
         JsonObject request = JsonObject.mapFrom(validatedMerchant);
-        paymentProcessor.processMerchantValidation(reques   t);
+        paymentProcessor.processMerchantValidation(request);
     }
 
     @Then("the payment request should be successfully processed")
