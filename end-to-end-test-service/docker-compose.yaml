@@ -14,7 +14,7 @@ services:
       retries: 30
 
   facade:
-    build: ../facade
+    image: facade
     container_name: facade-service
     ports:
       - "8080:8080"
@@ -24,7 +24,7 @@ services:
         condition: service_healthy
 
   token:
-    build: ../token-service
+    image: token-service
     container_name: token-service
     restart: on-failure
     depends_on:
@@ -32,7 +32,7 @@ services:
         condition: service_healthy
 
   account:
-    build: ../account-service
+    image: account-service
     container_name: account-service
     restart: on-failure
     depends_on:
@@ -40,7 +40,7 @@ services:
         condition: service_healthy
 
   payment:
-    build: ../payment-service
+    image: payment-service
     container_name: payment-service
     restart: on-failure
     depends_on:
@@ -48,7 +48,7 @@ services:
         condition: service_healthy
 
   reporting:
-    build: ../reporting-service
+    image: reporting-service
     container_name: reporting-service
     restart: on-failure
     depends_on:
