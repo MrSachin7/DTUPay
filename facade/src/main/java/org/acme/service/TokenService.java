@@ -37,7 +37,7 @@ public class TokenService {
             System.out.println("GenerateTokenRequested event fired: " + event.getCoRelationId());
             tokenRequestEmitter.send(event);
 
-            List<String> tokens = futureResponse.get(30, TimeUnit.SECONDS);
+            List<String> tokens = futureResponse.get(15, TimeUnit.SECONDS);
             System.out.println("Tokens generated: " + tokens.size());
             return new GenerateTokenResponse(tokens);
         } catch (Exception e) {

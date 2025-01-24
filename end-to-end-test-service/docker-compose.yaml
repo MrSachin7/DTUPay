@@ -5,8 +5,8 @@ services:
     container_name: rabbit-mqtt
     restart: unless-stopped
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "5672:5672" # AMQP Port for services
+      - "15672:15672" # Management UI Port
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
       interval: 3s
@@ -14,45 +14,69 @@ services:
       retries: 30
 
   facade:
-    image: facade
+    build: ../facade
     container_name: facade-service
     ports:
       - "8080:8080"
     restart: on-failure
     environment:
       - QUARKUS_HTTP_HOST=0.0.0.0
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
 
   token:
-    image: token-service
+    build: ../token-service
     container_name: token-service
     restart: on-failure
+    environment:
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
 
   account:
-    image: account-service
+    build: ../account-service
     container_name: account-service
     restart: on-failure
+    environment:
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
 
   payment:
-    image: payment-service
+    build: ../payment-service
     container_name: payment-service
     restart: on-failure
+    environment:
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
 
   reporting:
-    image: reporting-service
+    build: ../reporting-service
     container_name: reporting-service
     restart: on-failure
+    environment:
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy

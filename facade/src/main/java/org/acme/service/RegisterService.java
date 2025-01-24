@@ -44,7 +44,7 @@ public class RegisterService {
 
             // Wait for the response with a timeout
             // Wait for 30 secs at max
-            String customerId = responseFuture.get(30, TimeUnit.SECONDS);
+            String customerId = responseFuture.get(15, TimeUnit.SECONDS);
             System.out.println("Returning registered customer " + customerId);
             return new RegisterCustomerResponse(customerId);
 

@@ -24,5 +24,6 @@ popd
 
 pushd end-to-end-test-service
 ./deploy.sh
+sleep 10  # Wait for 10 seconds before running the tests
 ./test.sh
 popd

@@ -2,4 +2,5 @@
 
 set -e
 echo "Running tests..."
-mvn clean compile generate-sources test
+mvn clean install
+mvn test

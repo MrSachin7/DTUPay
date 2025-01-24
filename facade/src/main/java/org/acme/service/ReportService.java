@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class ReportService {
@@ -37,7 +38,7 @@ public class ReportService {
             System.out.println("Sending request to retrieve report of all payments");
             reportsRequestedEmitter.send(event);
 
-            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(15, TimeUnit.SECONDS);
             return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
@@ -55,7 +56,7 @@ public class ReportService {
             System.out.println("Sending request to retrieve report of customer payments");
             reportsRequestedEmitter.send(event);
 
-            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(15,    TimeUnit.SECONDS);
             return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
@@ -73,7 +74,7 @@ public class ReportService {
             System.out.println("Sending request to retrieve report of merchant payments");
             reportsRequestedEmitter.send(event);
 
-            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get();
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(15, TimeUnit.SECONDS);
             return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());

@@ -48,9 +48,9 @@ public class ReportSteps {
     public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystem() throws Exception {
         // Customer registration
         User customer1 = new User();
-        customer1.setCprNumber("1523678940");
-        customer1.setFirstName("Tomass");
-        customer1.setLastName("Durneks");
+        customer1.setCprNumber("1523678240");
+        customer1.setFirstName("Tomassz");
+        customer1.setLastName("Durneksx");
         String customerBankAccount1 = bankService.createAccountWithBalance(customer1, BigDecimal.valueOf(10000));
         Users.bankAccounts.add(customerBankAccount1);
 
@@ -59,9 +59,9 @@ public class ReportSteps {
 
         // Second customer registration
         User customer2 = new User();
-        customer2.setCprNumber("1578245630");
-        customer2.setFirstName("Satishs");
-        customer2.setLastName("Gurungs");
+        customer2.setCprNumber("1328245630");
+        customer2.setFirstName("Satisshs");
+        customer2.setLastName("Gurunsgs");
         String customerBankAccount2 = bankService.createAccountWithBalance(customer2, BigDecimal.valueOf(10000));
         Users.bankAccounts.add(customerBankAccount2);
         registerCustomerResponse2 = customerService.registerCustomer(new RegisterCustomerRequest(customer2.getFirstName(), customer2.getLastName(), customer2.getCprNumber(), customerBankAccount2));
@@ -69,9 +69,9 @@ public class ReportSteps {
 
         // Merchant registration
         User merchant = new User();
-        merchant.setCprNumber("1245893578");
-        merchant.setFirstName("Sachins");
-        merchant.setLastName("Barals");
+        merchant.setCprNumber("1245893808");
+        merchant.setFirstName("Sachians");
+        merchant.setLastName("Baralss");
         String merchantBankAccount = bankService.createAccountWithBalance(merchant, BigDecimal.valueOf(10000));
         Users.bankAccounts.add(merchantBankAccount);
         registerMerchantResponse = merchantService.registerMerchant(new RegisterCustomerRequest(merchant.getFirstName(), merchant.getLastName(), merchant.getCprNumber(), merchantBankAccount));
@@ -128,7 +128,7 @@ public class ReportSteps {
     public void thatAMultiplePaymentsAreMadeSuccessfullyInTheSystemByASpecificCustomer() throws Exception {
         // Customer registration
         User customer1 = new User();
-        customer1.setCprNumber("1523678940");
+        customer1.setCprNumber("1523652010");
         customer1.setFirstName("Tomass");
         customer1.setLastName("Durneks");
         String customerBankAccount1 = bankService.createAccountWithBalance(customer1, BigDecimal.valueOf(10000));
@@ -140,7 +140,7 @@ public class ReportSteps {
 
         // Merchant registration
         User merchant = new User();
-        merchant.setCprNumber("1245893578");
+        merchant.setCprNumber("1204586320");
         merchant.setFirstName("Sachins");
         merchant.setLastName("Barals");
         String merchantBankAccount = bankService.createAccountWithBalance(merchant, BigDecimal.valueOf(10000));
