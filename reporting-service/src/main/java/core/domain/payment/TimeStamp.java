@@ -6,20 +6,20 @@ import java.time.LocalDateTime;
 
 public class TimeStamp extends ValueObject {
 
-    private LocalDateTime value;
+    private String value;
 
     @Override
     protected Object[] getEqualityComponents() {
         return new Object[]{value};
     }
 
-    public LocalDateTime getValue() {
+    public String getValue() {
         return value;
     }
 
     public static TimeStamp now() {
         TimeStamp timeStamp = new TimeStamp();
-        timeStamp.value = LocalDateTime.now();
+        timeStamp.value = LocalDateTime.now().toString();
         return timeStamp;
     }
 

@@ -8,7 +8,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/features/RegisterSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/RegisterSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/features/RegisterSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/RegisterSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/TokenService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" afterDir="false" />
@@ -85,6 +92,26 @@
       <option name="NAME_FILTER" value="^Report generation for a specific customer$" />
       <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Report generation for a specific customer$&quot;" />
       <option name="SUGGESTED_NAME" value="Scenario: Report generation for a specific customer" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: Successful payment" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/payments.feature" />
+      <option name="GLUE" value="features" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="Test" />
+      <option name="NAME_FILTER" value="^Successful payment$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Successful payment$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Successful payment" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -204,6 +231,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.CucumberTest" />
+        <item itemvalue="Cucumber Java.Scenario: Successful payment" />
         <item itemvalue="Cucumber Java.Scenario: Successful payment" />
         <item itemvalue="Cucumber Java.Scenario: Report generation for a specific customer" />
         <item itemvalue="Cucumber Java.Scenario: All report generation" />

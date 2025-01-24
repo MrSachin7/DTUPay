@@ -38,7 +38,9 @@ public class ReportService {
             System.out.println("Sending request to retrieve report of all payments");
             reportsRequestedEmitter.send(event);
 
-            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(15, TimeUnit.SECONDS);
+            // Wait for the response with a timeout
+            // Wait for 30 secs at max
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(30, TimeUnit.SECONDS);
             return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
@@ -56,7 +58,9 @@ public class ReportService {
             System.out.println("Sending request to retrieve report of customer payments");
             reportsRequestedEmitter.send(event);
 
-            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(15,    TimeUnit.SECONDS);
+            // Wait for the response with a timeout
+            // Wait for 30 secs at max
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(30, TimeUnit.SECONDS);
             return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
@@ -74,7 +78,9 @@ public class ReportService {
             System.out.println("Sending request to retrieve report of merchant payments");
             reportsRequestedEmitter.send(event);
 
-            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(15, TimeUnit.SECONDS);
+            // Wait for the response with a timeout
+            // Wait for 30 secs at max
+            List<ReportsRetrieved.PaymentData> paymentData = responseFuture.get(30, TimeUnit.SECONDS);
             return new GenerateReportsResponse(transformToReportData(paymentData));
         } catch (Exception e) {
             coRelations.remove(event.getCorrelationId());
@@ -83,8 +89,9 @@ public class ReportService {
     }
 
     @Incoming("ReportsRetrieved")
-    public void process(JsonObject request) {
-        ReportsRetrieved event = request.mapTo(ReportsRetrieved.class);
+    public void process(JsonObject response) {
+        System.out.println("Received response for report request");
+        ReportsRetrieved event = response.mapTo(ReportsRetrieved.class);
         CompletableFuture<List<ReportsRetrieved.PaymentData>> future = coRelations.remove(event.getCorrelationId());
 
         future.complete(event.getPaymentData());
