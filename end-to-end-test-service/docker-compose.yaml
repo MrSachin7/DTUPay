@@ -59,11 +59,15 @@ services:
     build: ../payment-service
     container_name: payment-service
     restart: on-failure
+    extra_hosts:
+      - "fm-00.compute.dtu.dk:host-gateway"
     environment:
       - RABBITMQ_HOST=rabitt-mqtt
       - RABBITMQ_PORT=5672
       - RABBITMQ_USERNAME=guest
       - RABBITMQ_PASSWORD=guest
+      - WSDL_ENDPOINT=http://host.docker.internal:80/BankService
+
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
@@ -72,8 +76,6 @@ services:
     build: ../reporting-service
     container_name: reporting-service
     restart: on-failure
-    ports:
-      - "8081:8081"
     environment:
       - RABBITMQ_HOST=rabitt-mqtt
       - RABBITMQ_PORT=5672
