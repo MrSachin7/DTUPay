@@ -5,20 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a418a46-eb20-4e73-9a29-4db574056ef9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/features/customer-generate-tokens.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/features/customer-or-merchant-registration.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/features/customer-or-merchant-unregistration.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/features/merchant-payment.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/features/request-reports.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CucumberTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CustomerGenerateTokensSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CustomerOrMerchantRegistrationSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CustomerOrMerchantUnregistrationSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/MerchantPaymentSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/RequestReportsSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/MerchantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MerchantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/PaymentCompletedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/PaymentCompletedProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/ReportsRequestedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/eventConsumer/ReportsRequestedProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Tokens.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domain/token/Tokens.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/core/domainService/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/core/domainService/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/eventConsumer/PaymentRequestedProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../token-service/src/main/java/persistence/CustomerRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../token-service/src/main/java/persistence/CustomerRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/features/RegisterCustomerRequested.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/RegisterCustomerResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/RegisterCustomerResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/events/GenerateTokenSucceeded.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/events/ReportsRetrieved.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/events/ReportsRetrieved.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/RegisterCustomerRequestedSteps.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reporting-service/features/paymentCompleted.feature" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/features/payment-completed.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reporting-service/features/retrieveReports.feature" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/features/retrieve-reports.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/TimeStamp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/TimeStamp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/events/ReportsRetrieved.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/events/ReportsRetrieved.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,16 +55,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Cucumber Java.Scenario: All report generation.executor": "Run",
-    "Cucumber Java.Scenario: Report generation for a specific customer.executor": "Run",
-    "Cucumber Java.Scenario: Successful registration.executor": "Run",
-    "JUnit.CucumberTest.executor": "Run",
-    "git-widget-placeholder": "main",
-    "node.js.selected.package.tslint": "(autodetect)"
-  }
-}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nepal\OneDrive\Desktop\DTUPay\end-to-end-test-service\src\main\java" />
@@ -240,5 +241,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
