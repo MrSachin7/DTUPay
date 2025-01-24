@@ -2,15 +2,10 @@ package eventConsumer;
 
 
 import core.domainService.AccountService;
-import events.RegisterCustomerCompleted;
-import events.RegisterCustomerRequested;
 import events.UnregisterCustomerCompleted;
 import events.UnregisterCustomerRequested;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
@@ -32,6 +27,7 @@ public class UnRegisterCustomerRequestProcessor {
         try {
              accountService.unregisterAccount(event.getCustomerId());
             System.out.println("UnregisterCustomerCompleted event sent with success"+ event.getCoRelationId());
+
             return (new UnregisterCustomerCompleted(event.getCoRelationId(),event.getCustomerId(),null));
 
         } catch (Exception e) {

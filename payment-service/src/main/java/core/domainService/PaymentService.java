@@ -26,8 +26,7 @@ public class PaymentService {
         payment.setCustomerAccount(BankAccountNumber.from(customerAccount));
         payment.setMerchantAccount(BankAccountNumber.from(merchantAccount));
 
-
-        System.out.println("Transferring moneyyyyy from " + payment.getCustomerAccount().getValue() + " to " + payment.getMerchantAccount().getValue());
+        System.out.println("Transferring money from " + payment.getCustomerAccount().getValue() + " to " + payment.getMerchantAccount().getValue());
 
         bankService.transferMoneyFromTo(payment.getCustomerAccount().getValue(),
                 payment.getMerchantAccount().getValue(),

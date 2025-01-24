@@ -24,17 +24,28 @@ public class AccountService {
 
     }
 
-    public String retrieveBankAccount(String id) throws Exception {
-        Account account = accountRepository.find(AccountId.from(id));
+    public String retrieveBankAccount(String accountId) throws Exception {
+        Account account = findAccount(accountId);
 
         if (account == null){
-            throw new Exception("Merchant not found");
+            throw new Exception("Account not found");
         }
 
         return account.getBankAccountNumber().getValue();
     }
 
-    public void unregisterAccount(String customerId) {
-        accountRepository.delete(AccountId.from(customerId));
+    public void unregisterAccount(String accountId) throws Exception {
+
+        Account account = accountRepository.find(AccountId.from(accountId));
+
+        if (account != null){
+            throw new Exception("Account not found");
+        }
+        accountRepository.delete(AccountId.from(accountId));
     }
+
+    private Account findAccount(String id){
+        return accountRepository.find(AccountId.from(id));
+    }
+
 }

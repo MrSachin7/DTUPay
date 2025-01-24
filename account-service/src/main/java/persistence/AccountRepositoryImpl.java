@@ -3,6 +3,7 @@ package persistence;
 import core.domain.account.Account;
 import core.domain.account.AccountId;
 import core.domain.account.AccountRepository;
+import core.domain.account.CprNumber;
 import jakarta.inject.Singleton;
 
 import java.util.HashMap;
@@ -41,4 +42,5 @@ public class AccountRepositoryImpl implements AccountRepository {
     public void delete(AccountId id) {
         accounts.remove(id);
     }
+
 }
