@@ -1,6 +1,5 @@
 package eventConsumer;
 
-import core.domain.token.Customer;
 import core.domainService.TokenService;
 import events.PaymentRequested;
 import events.ValidateTokenCompleted;
@@ -9,6 +8,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
+/**
+ * @author: Satish Gurung (s243872)
+ */
 @ApplicationScoped
 public class PaymentRequestedProcessor {
     private final TokenService tokenService;

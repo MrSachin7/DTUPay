@@ -14,10 +14,12 @@ import org.junit.jupiter.api.Assertions;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * @author: Tomas Durnek (s233799)
+ */
 public class RetrieveReportsSteps {
 
     private final PaymentRepository repository;

@@ -5,6 +5,9 @@ import core.domain.token.CustomerId;
 import core.domain.token.CustomerRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
+/**
+ * @author: Radomir Roman (s232533)
+ */
 @ApplicationScoped
 public class CustomerService {
 

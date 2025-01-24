@@ -4,6 +4,9 @@ import core.domain.payment.Payment;
 import core.domain.payment.PaymentRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
+/**
+ * @author: Tomas Durnek (s233799)
+ */
 @ApplicationScoped
 public class PaymentService {
 

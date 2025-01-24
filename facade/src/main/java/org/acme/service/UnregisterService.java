@@ -13,6 +13,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author: Radomir Roman (s232533)
+ */
 @ApplicationScoped
 public class UnregisterService {
 

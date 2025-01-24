@@ -19,6 +19,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author: Radomir Roman (s232533)
+ */
 public class ReportSteps {
 
     private final CustomerService customerService;

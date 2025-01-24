@@ -12,6 +12,9 @@ import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
 import java.util.List;
 
+/**
+ * @author: Sachin Baral (s243871)
+ */
 @ApplicationScoped
 public class GenerateTokenRequestProcessor {
 

@@ -18,6 +18,9 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * @author: Janusz Jakub Wilczek (s243891)
+ */
 public class PaymentRequestedSteps {
 
     private final PaymentProcessor paymentProcessor;

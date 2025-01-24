@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * @author: Eduardo Filipe Fernandes Miranda (s223113)
+ */
 public class CustomerOrMerchantUnregistrationSteps {
     private String customerId1;
     private UnregisterCustomerRequested unregisterRequested;

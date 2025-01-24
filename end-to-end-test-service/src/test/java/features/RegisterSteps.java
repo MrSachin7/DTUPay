@@ -11,6 +11,9 @@ import services.CustomerService;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * @author: Sachin Baral (s243871)
+ */
 public class RegisterSteps{
     private final CustomerService customerService;
 

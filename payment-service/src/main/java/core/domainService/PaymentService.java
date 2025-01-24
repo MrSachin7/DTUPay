@@ -9,6 +9,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import java.math.BigDecimal;
 
+/**
+ * @author: Radomir Roman (s232533)
+ */
 @ApplicationScoped
 public class PaymentService {
 

@@ -7,6 +7,9 @@ import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
+/**
+ * @author: Satish Gurung (s243872)
+ */
 @ApplicationScoped
 public class PaymentCompletedProcessor {
 

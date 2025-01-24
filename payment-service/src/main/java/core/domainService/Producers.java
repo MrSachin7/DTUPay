@@ -5,6 +5,9 @@ import dtu.ws.fastmoney.BankServiceService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 
+/**
+ * @author: Janusz Jakub Wilczek (s243891)
+ */
 @ApplicationScoped
 public class Producers {
 

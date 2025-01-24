@@ -12,6 +12,9 @@ import org.acme.service.ReportService;
 import org.acme.service.TokenService;
 import org.acme.service.UnregisterService;
 
+/**
+ * @author: Satish Gurung (s243872)
+ */
 @Path("/customers")
 public class CustomerResource {
     private final RegisterService registerService;

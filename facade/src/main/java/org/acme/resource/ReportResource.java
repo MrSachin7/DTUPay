@@ -7,6 +7,9 @@ import jakarta.ws.rs.core.Response;
 import org.acme.dto.GenerateReportsResponse;
 import org.acme.service.ReportService;
 
+/**
+ * @author: Tomas Durnek (s233788)
+ */
 @Path("/reports")
 public class ReportResource {
 

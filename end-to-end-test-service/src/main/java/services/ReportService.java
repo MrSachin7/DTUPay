@@ -6,7 +6,9 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
 
-
+/**
+ * @author: Ari Sigþór Eiríksson (s232409)
+ */
 public class ReportService {
     private static final String BASE_URL = "http://localhost:8080/reports/";
 

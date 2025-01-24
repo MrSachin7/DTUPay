@@ -13,6 +13,9 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author: Ari Sigþór Eiríksson (s232409)
+ */
 public class TokenSteps {
 
     private final CustomerService customerService;

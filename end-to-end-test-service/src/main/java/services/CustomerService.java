@@ -10,6 +10,9 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.Response;
 
+/**
+ * @author: Sachin Baral (s243871)
+ */
 public class CustomerService {
     private static final String BASE_URL = "http://localhost:8080/customers/";
 

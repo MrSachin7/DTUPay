@@ -12,6 +12,9 @@ import org.acme.service.RegisterService;
 import org.acme.service.ReportService;
 import org.acme.service.UnregisterService;
 
+/**
+ * @author: Sachin Baral (s243871)
+ */
 @Path("/merchants")
 public class MerchantResource {
 

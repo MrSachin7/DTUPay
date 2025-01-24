@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author: Eduardo Filipe Fernandes Miranda (s223113)
+ */
 @Singleton
 public class CustomerRepositoryImpl implements CustomerRepository {
     private final Map<CustomerId, Customer> customers = new HashMap<>();

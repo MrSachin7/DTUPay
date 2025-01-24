@@ -15,6 +15,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author: Janusz Jakub Wilczek (s243891)
+ */
 @ApplicationScoped
 public class RegisterService {
 

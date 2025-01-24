@@ -9,9 +9,11 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author: Tomas Durnek (s233799)
+ */
 @ApplicationScoped
 public class ReportsRequestedProcessor {
 

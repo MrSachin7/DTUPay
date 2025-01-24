@@ -13,6 +13,9 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author: Ari Sigþór Eiríksson (s232409)
+ */
 @ApplicationScoped
 public class PaymentService {
 

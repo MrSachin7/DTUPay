@@ -5,6 +5,9 @@ import dtu.ws.fastmoney.BankServiceService;
 import io.cucumber.java.After;
 import services.CustomerService;
 
+/**
+ * @author: Sachin Baral (s243871)
+ */
 public class TeardownTests {
 
     private final BankService bankService = new BankServiceService().getBankServicePort();

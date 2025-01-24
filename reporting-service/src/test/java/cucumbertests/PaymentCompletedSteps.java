@@ -20,6 +20,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.never;
 
+/**
+ * @author: Tomas Durnek (s233799)
+ */
 public class PaymentCompletedSteps {
 
     private final PaymentRepository repository;

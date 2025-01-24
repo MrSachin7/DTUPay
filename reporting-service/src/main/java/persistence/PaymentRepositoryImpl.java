@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author: Radomir Roman (s232533)
+ */
 @Singleton
 public class PaymentRepositoryImpl implements PaymentRepository {
     private final Map<PaymentId, Payment> payments = new HashMap<>();

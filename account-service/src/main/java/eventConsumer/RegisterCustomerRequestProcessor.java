@@ -9,6 +9,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
+/**
+ * @author: Janusz Jakub Wilczek (s243891)
+ */
 @ApplicationScoped
 public class RegisterCustomerRequestProcessor {
 

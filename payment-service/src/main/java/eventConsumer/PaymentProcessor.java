@@ -8,6 +8,9 @@ import org.eclipse.microprofile.reactive.messaging.*;
 
 import java.util.concurrent.*;
 
+/**
+ * @author: Ari Sigþór Eiríksson (s232409)
+ */
 @ApplicationScoped
 public class PaymentProcessor {
     private final ConcurrentHashMap<String, PaymentContext> paymentContexts = new ConcurrentHashMap<>();

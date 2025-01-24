@@ -9,6 +9,9 @@ import jakarta.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author: Ari Sigþór Eiríksson (s232409)
+ */
 @Singleton
 public class AccountRepositoryImpl implements AccountRepository {
 

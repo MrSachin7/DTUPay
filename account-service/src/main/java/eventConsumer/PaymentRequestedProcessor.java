@@ -8,6 +8,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 
+/**
+ * @author: Eduardo Filipe Fernandes Miranda (s223113)
+ */
 @ApplicationScoped
 public class PaymentRequestedProcessor {
 

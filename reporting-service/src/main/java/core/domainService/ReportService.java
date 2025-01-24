@@ -8,6 +8,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 
+/**
+ * @author: Tomas Durnek (s233799)
+ */
 @ApplicationScoped
 public class ReportService {
 

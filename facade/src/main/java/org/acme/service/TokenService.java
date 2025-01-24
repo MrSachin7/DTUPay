@@ -14,6 +14,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author: Eduardo Filipe Fernandes Miranda (s223113)
+ */
 @ApplicationScoped
 public class TokenService {
 

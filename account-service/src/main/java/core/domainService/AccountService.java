@@ -3,6 +3,9 @@ package core.domainService;
 import core.domain.account.*;
 import jakarta.enterprise.context.ApplicationScoped;
 
+/**
+ * @author: Satish Gurung (s243872)
+ */
 @ApplicationScoped
 public class AccountService {
 

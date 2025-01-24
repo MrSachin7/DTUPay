@@ -19,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * @author: Ari Sigþór Eiríksson (s232409)
+ */
 public class MerchantPaymentSteps {
 
     private String merchantId;

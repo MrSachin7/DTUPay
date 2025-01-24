@@ -9,6 +9,9 @@ import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 
+/**
+ * @author: Janusz Jakub Wilczek (s243891)
+ */
 @ApplicationScoped
 public class ValidateTokenCompletedProcessor {
 
