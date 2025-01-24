@@ -77,6 +77,8 @@ services:
     image: payment-service
     container_name: payment-service
     restart: on-failure
+    ports:
+      - "8081:8081"
     extra_hosts:
       - "fm-03.compute.dtu.dk:host-gateway"
     environment:
