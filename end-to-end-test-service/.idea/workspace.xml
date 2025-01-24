@@ -5,31 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a418a46-eb20-4e73-9a29-4db574056ef9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../facade/features/customer-generate-tokens.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/features/customer-or-merchant-registration.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/features/customer-or-merchant-unregistration.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/features/merchant-payment.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/features/request-reports.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CucumberTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CustomerGenerateTokensSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CustomerOrMerchantRegistrationSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/CustomerOrMerchantUnregistrationSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/MerchantPaymentSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/RequestReportsSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/features/RegisterCustomerRequested.feature" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/RegisterCustomerResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/dto/RegisterCustomerResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/events/GenerateTokenSucceeded.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/events/ReportsRetrieved.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/events/ReportsRetrieved.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/features/RegisterSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/RegisterSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/features/ReportSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/PaymentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/RegisterService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/ReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../facade/src/test/java/cucumbertests/RegisterCustomerRequestedSteps.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reporting-service/features/paymentCompleted.feature" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/features/payment-completed.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reporting-service/features/retrieveReports.feature" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/features/retrieve-reports.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/TimeStamp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/core/domain/payment/TimeStamp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../reporting-service/src/main/java/events/ReportsRetrieved.java" beforeDir="false" afterPath="$PROJECT_DIR$/../reporting-service/src/main/java/events/ReportsRetrieved.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../facade/src/main/java/org/acme/service/TokenService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,25 +46,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.CucumberTest">
-    <configuration name="Feature: reporting" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="5" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/features/reporting.feature" />
-      <option name="GLUE" value="features" />
-      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
-      <module name="end-to-end-test-service" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
-      <option name="SUGGESTED_NAME" value="Feature: reporting" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="io.cucumber.core.cli.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Scenario: All report generation" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
       <option name="CUCUMBER_CORE_VERSION" value="5" />
       <option name="FILE_PATH" value="$PROJECT_DIR$/features/reporting.feature" />
@@ -109,6 +75,26 @@
       <option name="NAME_FILTER" value="^Report generation for a specific customer$" />
       <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Report generation for a specific customer$&quot;" />
       <option name="SUGGESTED_NAME" value="Scenario: Report generation for a specific customer" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: Successful payment" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/features/payments.feature" />
+      <option name="GLUE" value="features" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="Test" />
+      <option name="NAME_FILTER" value="^Successful payment$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Successful payment$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Successful payment" />
       <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
       <extension name="coverage">
         <pattern>
@@ -208,10 +194,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.CucumberTest" />
+        <item itemvalue="Cucumber Java.Scenario: Successful payment" />
         <item itemvalue="Cucumber Java.Scenario: Report generation for a specific customer" />
         <item itemvalue="Cucumber Java.Scenario: All report generation" />
         <item itemvalue="Cucumber Java.Scenario: Successful registration" />
-        <item itemvalue="Cucumber Java.Feature: reporting" />
       </list>
     </recent_temporary>
   </component>
@@ -241,16 +227,5 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

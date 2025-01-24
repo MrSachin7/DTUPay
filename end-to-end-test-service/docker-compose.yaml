@@ -5,8 +5,8 @@ services:
     container_name: rabbit-mqtt
     restart: unless-stopped
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "5672:5672" # AMQP Port for services
+      - "15672:15672" # Management UI Port
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
       interval: 3s
@@ -19,6 +19,12 @@ services:
     ports:
       - "8080:8080"
     restart: on-failure
+    environment:
+      - QUARKUS_HTTP_HOST=0.0.0.0
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
@@ -27,6 +33,11 @@ services:
     image: token-service
     container_name: token-service
     restart: on-failure
+    environment:
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
@@ -35,6 +46,11 @@ services:
     image: account-service
     container_name: account-service
     restart: on-failure
+    environment:
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
@@ -43,8 +59,15 @@ services:
     image: payment-service
     container_name: payment-service
     restart: on-failure
-    ports:
-      - "8080:8080"
+    extra_hosts:
+      - "fm-00.compute.dtu.dk:host-gateway"
+    environment:
+      - QUARKUS_HTTP_HOST=0.0.0.0
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
@@ -53,6 +76,11 @@ services:
     image: reporting-service
     container_name: reporting-service
     restart: on-failure
+    environment:
+      - RABBITMQ_HOST=rabitt-mqtt
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
     depends_on:
       rabitt-mqtt:
         condition: service_healthy
