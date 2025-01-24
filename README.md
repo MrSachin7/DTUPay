@@ -17,8 +17,8 @@ https://github.com/MrSachin7/DTUPay.git
 1. Clone the project and access it's directory:
 
    ```sh
-   git clone <REPOSITORY_URL>
-   cd <REPOSITORY_DIRECTORY>
+   git clone (https://github.com/MrSachin7/DTUPay)
+   cd DTUPay
    ```
 
 2. Make sure all scripts are executable:
