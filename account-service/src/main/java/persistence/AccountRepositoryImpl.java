@@ -41,4 +41,9 @@ public class AccountRepositoryImpl implements AccountRepository {
     public void delete(AccountId id) {
         accounts.remove(id);
     }
+
+    @Override
+    public Account findByCpr(CprNumber cprNumber) {
+        return accounts.values().stream().filter(account -> account.getCprNumber().equals(cprNumber)).findFirst().orElse(null);
+    }
 }

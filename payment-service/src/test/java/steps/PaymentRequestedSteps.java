@@ -1,4 +1,4 @@
-package cucumbertests;
+package steps;
 
 import core.domainService.PaymentService;
 import dtu.ws.fastmoney.BankService;
