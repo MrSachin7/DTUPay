@@ -28,7 +28,7 @@ public class PaymentRequestedSteps {
 
     private final PaymentRequestedProcessor processor;
 
-    public PaymentRequestedSteps( ) {
+    public PaymentRequestedSteps() {
         this.accountRepository = mock(AccountRepository.class);
         this.processor = new PaymentRequestedProcessor(new AccountService(accountRepository));
     }

@@ -25,7 +25,7 @@ public class AccountService {
     }
 
     public String retrieveBankAccount(String accountId) throws Exception {
-        Account account = findAccount(id);
+        Account account = findAccount(accountId);
 
         if (account == null){
             throw new Exception("Account not found");
@@ -48,7 +48,4 @@ public class AccountService {
         return accountRepository.find(AccountId.from(id));
     }
 
-    private Account findAccountByCpr(String cpr){
-        return accountRepository.findByCpr(CprNumber.from(cpr));
-    }
 }

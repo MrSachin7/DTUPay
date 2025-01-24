@@ -3,6 +3,7 @@ package persistence;
 import core.domain.account.Account;
 import core.domain.account.AccountId;
 import core.domain.account.AccountRepository;
+import core.domain.account.CprNumber;
 import jakarta.inject.Singleton;
 
 import java.util.HashMap;
@@ -42,8 +43,4 @@ public class AccountRepositoryImpl implements AccountRepository {
         accounts.remove(id);
     }
 
-    @Override
-    public Account findByCpr(CprNumber cprNumber) {
-        return accounts.values().stream().filter(account -> account.getCprNumber().equals(cprNumber)).findFirst().orElse(null);
-    }
 }
