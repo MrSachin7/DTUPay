@@ -6,9 +6,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 
-/**
- * @author: Sachin Baral (s243871)
- */
 @ApplicationScoped
 public class TokenService {
 
@@ -21,17 +18,13 @@ public class TokenService {
     public List<String> generateTokens(String customerId, int amount) throws TokenException, NotFoundException {
         System.out.println("Processing token request");
         Customer customer = repository.find(CustomerId.from(customerId));
-
-        if(customer == null){
-            throw new NotFoundException("Customer not found");
-        } else if (repository.find(CustomerId.from(customerId)).getTokens().size() > 1) {
-            throw new TokenException("Customer has more than one token");
-        } else {
+        if (customer == null) {
             customer = Customer.from(CustomerId.from(customerId));
             repository.add(customer);
-            customer.generateTokens(amount);
-            return customer.getTokens();
         }
+        customer.generateTokens(amount);
+        return customer.getTokens();
+
     }
 
     public String validateToken(String token) throws NotFoundException {

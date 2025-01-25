@@ -3,9 +3,6 @@ package core.domainService;
 import core.domain.account.*;
 import jakarta.enterprise.context.ApplicationScoped;
 
-/**
- * @author: Satish Gurung (s243872)
- */
 @ApplicationScoped
 public class AccountService {
 
@@ -37,12 +34,12 @@ public class AccountService {
         return account.getBankAccountNumber().getValue();
     }
 
-    public void unregisterAccount(String accountId) throws Exception {
+    public void unregisterAccount(String accountId){
 
         Account account = accountRepository.find(AccountId.from(accountId));
 
         if (account != null){
-            throw new Exception("Account not found");
+            System.out.println("Account not found");
         }
         accountRepository.delete(AccountId.from(accountId));
     }

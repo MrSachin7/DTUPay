@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.acme</groupId>
     <artifactId>code-with-quarkus</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <!-- ============= Properties ============= -->
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Quarkus BOM coordinates -->
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.version>3.17.7</quarkus.platform.version>
+
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.0</surefire-plugin.version>
+
+        <!-- Choose a CXF Codegen Plugin version compatible with Quarkus-CXF -->
+        <cxf.codegen.plugin.version>3.5.5</cxf.codegen.plugin.version>
     </properties>
 
+    <!-- ============= Dependency Management ============= -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -36,42 +48,39 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- ============= Dependencies ============= -->
     <dependencies>
+
+        <!-- Quarkus CXF extension (for SOAP support in Quarkus) -->
         <dependency>
             <groupId>io.quarkiverse.cxf</groupId>
             <artifactId>quarkus-cxf</artifactId>
         </dependency>
+
+        <!-- Quarkus DI -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
 
-
-
-
+        <!-- (Optional) Jakarta APIs if your code at runtime needs them:
+             If Quarkus-CXF doesn't already bring them in, you can add them explicitly. -->
         <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>7.13.0</version>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>7.13.0</version>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-picocontainer</artifactId>
-            <version>7.13.0</version>
-        </dependency>
-        <!-- This is JUnit 5 aka Jupiter -->
+
+        <!-- Test dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
-        <!--  These two dependencies allow to run JUnit 4 tests and Cucumber tests. -->
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
@@ -84,14 +93,6 @@
             <version>1.10.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.5.0</version>
-            <scope>test</scope>
-        </dependency>
-
-
 
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -118,16 +119,14 @@
             <version>5.5.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.5.0</version>
-            <scope>test</scope>
-        </dependency>
+
     </dependencies>
 
+    <!-- ============= Build Plugins ============= -->
     <build>
         <plugins>
+
+            <!-- Quarkus Maven Plugin (already present) -->
             <plugin>
                 <groupId>${quarkus.platform.group-id}</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
@@ -144,6 +143,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
@@ -151,6 +152,8 @@
                     <parameters>true</parameters>
                 </configuration>
             </plugin>
+
+            <!-- Surefire Plugin -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
@@ -161,6 +164,8 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
+            <!-- Failsafe Plugin -->
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${surefire-plugin.version}</version>
@@ -181,6 +186,7 @@
                 </configuration>
             </plugin>
 
+            <!-- Redundant Quarkus Maven Plugin entry? Keep if needed -->
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
@@ -193,9 +199,51 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- ================== CXF Codegen Plugin ================== -->
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <!-- Must be 4.x to get `jakarta.*` imports -->
+                <version>4.0.5</version>
+                <executions>
+                    <execution>
+                        <id>generate-ws-stubs</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                        <configuration>
+                            <!-- The KEY: generate Jakarta (jakarta.xml.ws.*) instead of javax.* -->
+                            <jakarta>true</jakarta>
+
+                            <!-- Where generated code is placed -->
+                            <sourceRoot>
+                                ${project.build.directory}/generated-sources/cxf
+                            </sourceRoot>
+
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <!-- Use your remote WSDL URL -->
+                                    <wsdl>http://fm-00.compute.dtu.dk/BankService.wsdl.xml</wsdl>
+
+                                    <!-- Force the same WSDL location in the generated @WebServiceClient -->
+                                    <extraargs>
+                                        <extraarg>-wsdlLocation</extraarg>
+                                        <extraarg>http://fm-00.compute.dtu.dk/BankService.wsdl.xml</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- ======================================================== -->
+
         </plugins>
     </build>
 
+    <!-- ============= Profiles ============= -->
     <profiles>
         <profile>
             <id>native</id>

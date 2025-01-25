@@ -27,9 +27,3 @@ Feature: Token Generation
     Then the tokens should not be generated
     And the event is created with the same coRelation id
 
-  Scenario: Unsuccessful token generation when user does not exists in the system
-    Given a customer does not exits in the system
-    And the customer has never generated a token
-    When the customer generates a tokens with amount 5
-    Then the tokens should not be generated
-    And the event is created with the same coRelation id

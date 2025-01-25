@@ -1,9 +1,9 @@
 Feature: Payment
   Scenario: Successful payment
-    Given a customer with name "Braaszasdilasdasa", last name "Chisldasdaseaas", and CPR "4256313336"
+    Given a customer with name "Braaszdfasdilasdasa", last name "Chisldadfgsdaseaas", and CPR "4836313336"
     And the customer is registered with the bank with an initial balance of 1000 kr
     And the customer is registered with Simple DTU Pay using their bank account
-    And a merchant with name "Nepsdfsadasdasdla", last name "Dendmsadasdasdarka", and CPR "4598386814"
+    And a merchant with name "Nepsdfsaddfgasdasdla", last name "Dendmsafddasdasdarka", and CPR "4589686814"
     And the merchant is registered with the bank with an initial balance of 1000 kr
     And the merchant is registered with Simple DTU Pay using their bank
     And the customer has generated token
@@ -13,10 +13,10 @@ Feature: Payment
     And the balance of the merchant should be 1010 kr
 
   Scenario: Unsuccessful payment due to invalid token
-    Given a customer with name "Braaszasislasdasa", last name "Chissasldaseaas", and CPR "1346561230"
+    Given a customer with name "Braaszasisladfgsdasa", last name "Chisdfgsasldaseaas", and CPR "1342591230"
     And the customer is registered with the bank with an initial balance of 1000 kr
     And the customer is registered with Simple DTU Pay using their bank account
-    And a merchant with name "Nepsdfsadasdasdla", last name "Dendmsadaassdarka", and CPR "4564261248"
+    And a merchant with name "Nepsdfsadasdasdla", last name "Dendmsadaassdarka", and CPR "4564236748"
     And the merchant is registered with the bank with an initial balance of 1000 kr
     And the merchant is registered with Simple DTU Pay using their bank
     And the customer has generated token
@@ -26,10 +26,10 @@ Feature: Payment
     And the balance of the merchant should be 1000 kr
 
   Scenario: Unsuccessful payment because merchant is not registered with DTU Pay
-    Given a customer with name "Braaszasilasdasa", last name "Chisasldaseaas", and CPR "2362201027"
+    Given a customer with name "Braaszasilfsasdasa", last name "Chisasldafdsseaas", and CPR "2312801027"
     And the customer is registered with the bank with an initial balance of 1000 kr
     And the customer is registered with Simple DTU Pay using their bank account
-    And a merchant with name "Nepsdfsadasdasdla", last name "Dendmsadaassdarka", and CPR "1575378682"
+    And a merchant with name "Nepsdfsadsdfasdasdla", last name "Dendmsadsdfaassdarka", and CPR "1575752682"
     And the merchant is registered with the bank with an initial balance of 1000 kr
     And the merchant is not registered with Simple DTU Pay using their bank
     And the customer has generated token
